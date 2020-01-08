@@ -19,6 +19,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private long id;
 
 	@Column(name = "firstName", nullable = false)
@@ -27,23 +28,22 @@ public class User {
 
 	@Column(name = "lastName", nullable = true)
 	private String lastName;
-	
-	
-	@Column(name = "phoneNumber", nullable = false,unique = true)
+
+	@Column(name = "phoneNumber", nullable = false, unique = true)
 	@NotEmpty(message = "enter phone number")
 	private int phoneNumber;
-	
+
 	@Column(name = "email", nullable = false, unique = true)
 	@NotEmpty(message = "Email cannot be empty..!!")
 	private String email;
-	
+
 	@Column(name = "isPhoneVerified", nullable = true)
 	private boolean isPhoneVerified;
-	
+
 	@Column(name = "isEmailVerified", nullable = false)
 	private boolean isEmailVerified;
-	
-	@Column(name="password", nullable = false, unique = true)
+
+	@Column(name = "password", nullable = false, unique = true)
 	@NotEmpty(message = "password cannot be empty..!!")
 	private String password;
 }

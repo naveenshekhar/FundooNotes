@@ -1,13 +1,13 @@
-package com.example.demo;
+package com.bridgelabz.fundoo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FundooNotesApplication {
+public class FundooNoteApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FundooNotesApplication.class, args);
+		SpringApplication.run(FundooNoteApplication.class, args);
 	}
 
 }
