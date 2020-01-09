@@ -1,3 +1,12 @@
+/****************************************
+ * @Author  : Naveen Shekhar
+ * @version : 1.0
+ * @ purpose: Model class to interact with database(create user table).
+ * @Date    : 08:01:2020
+ * @File    : User.java 
+ ****************************************/
+
+
 package com.bridgelabz.fundoo.model;
 
 import javax.persistence.Column;
@@ -13,7 +22,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "user")
-@Setter
+@Setter 
 @Getter
 public class User {
 
@@ -31,17 +40,11 @@ public class User {
 
 	@Column(name = "phoneNumber", nullable = false, unique = true)
 	@NotEmpty(message = "enter phone number")
-	private int phoneNumber;
+	private long phoneNumber;
 
 	@Column(name = "email", nullable = false, unique = true)
 	@NotEmpty(message = "Email cannot be empty..!!")
 	private String email;
-
-	@Column(name = "isPhoneVerified", nullable = true)
-	private boolean isPhoneVerified;
-
-	@Column(name = "isEmailVerified", nullable = false)
-	private boolean isEmailVerified;
 
 	@Column(name = "password", nullable = false, unique = true)
 	@NotEmpty(message = "password cannot be empty..!!")
