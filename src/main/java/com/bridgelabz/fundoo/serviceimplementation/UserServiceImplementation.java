@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoo.dto.UserDto;
+import com.bridgelabz.fundoo.dto.UserLoginDto;
 import com.bridgelabz.fundoo.model.User;
 import com.bridgelabz.fundoo.repository.UserRepository;
 import com.bridgelabz.fundoo.service.UserService;
@@ -33,6 +34,14 @@ public class UserServiceImplementation implements UserService {
 		//System.out.println(user.getPhoneNumber());
 		return user;
 		
+	}
+
+	@Override
+	public User login(UserLoginDto userLogin) {
+		
+		user.getEmail();
+		user.getPassword();
+		return user;
 	}
 
 }
