@@ -38,9 +38,9 @@ public class User {
 	@Column(name = "lastName", nullable = true)
 	private String lastName;
 
-	@Column(name = "phoneNumber", nullable = false, unique = true)
+	@Column(name = "phoneNumber",nullable = false, unique = true)
 	@NotEmpty(message = "enter phone number")
-	private long phoneNumber;
+	private String phoneNumber;
 
 	@Column(name = "email", nullable = false, unique = true)
 	@NotEmpty(message = "Email cannot be empty..!!")

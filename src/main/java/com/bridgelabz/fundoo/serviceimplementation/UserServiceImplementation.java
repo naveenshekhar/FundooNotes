@@ -17,19 +17,22 @@ public class UserServiceImplementation implements UserService {
 	private UserRepository userRepository;
 
 	@Override
-	public void register(UserDto userdto) {
+	public User register(UserDto userdto) {
 		user.setFirstName(userdto.getFirstName());
 		
 		user.setLastName(userdto.getLastName());
 
-		user.setPhoneNumber(userdto.getPnoneNumber());
+		user.setPhoneNumber(userdto.getPhoneNumber());
 
 		user.setEmail(userdto.getEmail());
 
 		user.setPassword(userdto.getPassword());
 
-		userRepository.insertData(userdto.getFirstName(),userdto.getLastName(),userdto.getPnoneNumber(),
-				userdto.getEmail(),userdto.getPassword());
+		userRepository.insertData(user.getFirstName(),user.getLastName(),user.getPhoneNumber(),
+				user.getEmail(),user.getPassword());
+		//System.out.println(user.getPhoneNumber());
+		return user;
+		
 	}
 
 }

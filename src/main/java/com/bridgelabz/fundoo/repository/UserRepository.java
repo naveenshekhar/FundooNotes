@@ -16,8 +16,8 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	@Modifying
 	@Transactional
-	@Query(value="insert into FundooNotes.user (firstName,lastName,phoneNumber,email,password) "
+	@Query(value="insert into user (first_name,last_name,phone_number,email,password) "
 			+ "values (?,?,?,?,?)",nativeQuery=true)
-	public void insertData(String firstName, String lastName, long phoneNumber,String email, String password);
+	public void insertData(String first_name, String last_name, String phone_number,String email, String password);
 
 }

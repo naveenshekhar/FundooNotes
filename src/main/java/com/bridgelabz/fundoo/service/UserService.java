@@ -1,9 +1,10 @@
 package com.bridgelabz.fundoo.service;
 
 import com.bridgelabz.fundoo.dto.UserDto;
+import com.bridgelabz.fundoo.model.User;
 
 public interface UserService {
 
-	void register(UserDto userdto);
+	User register(UserDto userdto); 
 
 }

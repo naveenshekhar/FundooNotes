@@ -19,8 +19,8 @@ public class UserDto {
 	private String lastName;
 	
 	@NotNull
-	@Size(max = 12, message = "invalid phone number")
-	private long pnoneNumber;
+	@Size(max=10,message = "invalid phone number")
+	private String phoneNumber;
 	
 	@NotNull
 	private String email;
