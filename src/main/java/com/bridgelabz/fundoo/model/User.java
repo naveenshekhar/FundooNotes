@@ -1,7 +1,7 @@
 /****************************************
  * @Author  : Naveen Shekhar
  * @version : 1.0
- * @ purpose: Model class to interact with database(create user table).
+ * @ purpose: Model class to interact with User
  * @Date    : 08:01:2020
  * @File    : User.java 
  ****************************************/

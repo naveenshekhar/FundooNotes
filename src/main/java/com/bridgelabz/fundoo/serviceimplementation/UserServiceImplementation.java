@@ -37,11 +37,19 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public User login(UserLoginDto userLogin) {
+	public boolean login(UserLoginDto userLogin) {
 		
-		user.getEmail();
-		user.getPassword();
-		return user;
+		String emailFromDB=user.getEmail();
+		String emailFromDto=userLogin.getEmail();
+		
+		if(emailFromDB.equals(emailFromDto))
+		{
+			return true;
+		}
+		else
+			return false;
+		
+		
 	}
 
 }

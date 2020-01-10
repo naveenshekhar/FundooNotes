@@ -12,6 +12,7 @@ import com.bridgelabz.fundoo.dto.UserLoginDto;
 import com.bridgelabz.fundoo.model.User;
 import com.bridgelabz.fundoo.responces.Responce;
 import com.bridgelabz.fundoo.service.UserService;
+import com.bridgelabz.fundoo.serviceimplementation.UserServiceImplementation;
 
 @RestController
 public class RegisterController {
@@ -37,11 +38,11 @@ public class RegisterController {
 	@PostMapping("/login")
 	public ResponseEntity<Responce> login(@RequestBody UserLoginDto userLogin) {
 		
-		User user=service.login(userLogin);
+		UserServiceImplementation u=new UserServiceImplementation();
 		
-		if(user !=null)
+		if(u.login(userLogin))
 		{
-			//String token= 
+			System.out.println("hello");
 		}
 		
 		return null;
