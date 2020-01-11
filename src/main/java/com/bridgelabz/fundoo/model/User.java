@@ -31,16 +31,16 @@ public class User {
 	@Column(name = "id")
 	private long id;
 
-	@Column(name = "firstName", nullable = false)
+	@Column(name = "first_name", nullable = false)
 	@NotEmpty(message = "Enter first name first")
-	private String firstName;
+	private String first_name;
 
-	@Column(name = "lastName", nullable = true)
-	private String lastName;
+	@Column(name = "last_name", nullable = true)
+	private String last_name;
 
-	@Column(name = "phoneNumber",nullable = false, unique = true)
+	@Column(name = "phone_number",nullable = false, unique = true)
 	@NotEmpty(message = "enter phone number")
-	private String phoneNumber;
+	private String phone_number;
 
 	@Column(name = "email", nullable = false, unique = true)
 	@NotEmpty(message = "Email cannot be empty..!!")

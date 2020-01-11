@@ -9,22 +9,22 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDto {
-	
+
 	@NotNull
 	@Size(max = 50, message = "Invalid name")
-	private String firstName;
-	
+	private String first_name;
+
 	@NotNull
 	@Size(max = 50, message = "invalid name")
-	private String lastName;
-	
+	private String last_name;
+
 	@NotNull
-	@Size(max=10,message = "invalid phone number")
-	private String phoneNumber;
-	
+	@Size(max = 10, message = "invalid phone number")
+	private String phone_number;
+
 	@NotNull
 	private String email;
-	
+
 	@NotNull
 	@Size(max = 12, message = "invalid password")
 	private String password;

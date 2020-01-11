@@ -8,6 +8,6 @@ public interface UserService {
 
 	User register(UserDto userdto);
 
-	boolean login(UserLoginDto userLogin);
+	User login(UserLoginDto userLogin);
 
 }

@@ -12,14 +12,13 @@ import com.bridgelabz.fundoo.dto.UserLoginDto;
 import com.bridgelabz.fundoo.model.User;
 import com.bridgelabz.fundoo.responces.Responce;
 import com.bridgelabz.fundoo.service.UserService;
-import com.bridgelabz.fundoo.serviceimplementation.UserServiceImplementation;
 
 @RestController
 public class RegisterController {
 
 	@Autowired
 	private UserService service;
-
+    
 	@PostMapping("/register")
 	public ResponseEntity<Responce> register(@RequestBody UserDto userDto) {
 
@@ -38,14 +37,14 @@ public class RegisterController {
 	@PostMapping("/login")
 	public ResponseEntity<Responce> login(@RequestBody UserLoginDto userLogin) {
 		
-		UserServiceImplementation u=new UserServiceImplementation();
-		
-		if(u.login(userLogin))
+		User result=service.login(userLogin);
+		if(result !=null)
 		{
-			System.out.println("hello");
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful", 200));
 		}
-		
-		return null;
-		
+		else
+		{
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("UnSuccessful", 400));
+		}
 	}
 }

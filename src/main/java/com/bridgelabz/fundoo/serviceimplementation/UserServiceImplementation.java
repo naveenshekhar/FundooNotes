@@ -19,17 +19,17 @@ public class UserServiceImplementation implements UserService {
 
 	@Override
 	public User register(UserDto userdto) {
-		user.setFirstName(userdto.getFirstName());
+		user.setFirst_name(userdto.getFirst_name());
 		
-		user.setLastName(userdto.getLastName());
+		user.setLast_name(userdto.getLast_name());
 
-		user.setPhoneNumber(userdto.getPhoneNumber());
+		user.setPhone_number(userdto.getPhone_number());
 
 		user.setEmail(userdto.getEmail());
 
 		user.setPassword(userdto.getPassword());
 
-		userRepository.insertData(user.getFirstName(),user.getLastName(),user.getPhoneNumber(),
+		userRepository.insertData(user.getFirst_name(),user.getLast_name(),user.getPhone_number(),
 				user.getEmail(),user.getPassword());
 		//System.out.println(user.getPhoneNumber());
 		return user;
@@ -37,19 +37,18 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public boolean login(UserLoginDto userLogin) {
+	public User login(UserLoginDto userLogin) {
 		
 		String emailFromDB=user.getEmail();
 		String emailFromDto=userLogin.getEmail();
+		User user=userRepository.checkByEmail(userLogin.getEmail());
 		
 		if(emailFromDB.equals(emailFromDto))
 		{
-			return true;
+			return user;
 		}
 		else
-			return false;
-		
-		
+			return null;
 	}
 
 }
