@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoo.serviceimplementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.bridgelabz.fundoo.dto.ForgetPaswordDto;
@@ -9,6 +10,7 @@ import com.bridgelabz.fundoo.dto.UserLoginDto;
 import com.bridgelabz.fundoo.model.User;
 import com.bridgelabz.fundoo.repository.UserRepository;
 import com.bridgelabz.fundoo.service.UserService;
+import com.bridgelabz.fundoo.utility.JwtGenerator;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -18,6 +20,8 @@ public class UserServiceImplementation implements UserService {
 	BCryptPasswordEncoder bcrypt;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	JwtGenerator tokenGenerator;
 
 	@Override
 	public User register(UserDto userdto) {
@@ -45,8 +49,11 @@ public class UserServiceImplementation implements UserService {
 		String emailFromDB = user.getEmail();
 		String passwordFrmDb = user.getPassword();
 		String pswrdfrmDTO = userLogin.getPassword();
+
+		boolean is_pswrd_matched = BCrypt.checkpw(passwordFrmDb, pswrdfrmDTO);
+
 		if (emailFromDB.equals(emailFromDto)) {
-			if (passwordFrmDb.equals(pswrdfrmDTO)) {
+			if (is_pswrd_matched) {
 				System.out.println(user);
 				return user;
 			}
@@ -67,4 +74,17 @@ public class UserServiceImplementation implements UserService {
 		return null;
 	}
 
+//	public User verify(String token) {
+//		try {
+//			Log.info("id in verification"+tokenGenerator.parse(token));
+//			long id=tokenGenerator.parse(token);
+//	/*		User userinfo=userRepository.findById(id);    */
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+	
+	
 }
