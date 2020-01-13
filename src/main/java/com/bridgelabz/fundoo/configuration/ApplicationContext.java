@@ -1,15 +1,16 @@
 package com.bridgelabz.fundoo.configuration;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
-
+import com.bridgelabz.fundoo.serviceimplementation.UserServiceImplementation;
 
 @Configuration
 public class ApplicationContext {
+
 //	@Bean
-//	public User getUser()
+//	public UserServiceImplementation getUserSevice()
 //	{
-//		return new User();
+//		return new UserServiceImplementation();
 //	}
 }

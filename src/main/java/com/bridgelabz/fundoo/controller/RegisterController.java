@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgelabz.fundoo.dto.ForgetPaswordDto;
 import com.bridgelabz.fundoo.dto.UserDto;
 import com.bridgelabz.fundoo.dto.UserLoginDto;
 import com.bridgelabz.fundoo.model.User;
@@ -18,7 +19,7 @@ public class RegisterController {
 
 	@Autowired
 	private UserService service;
-    
+
 	@PostMapping("/register")
 	public ResponseEntity<Responce> register(@RequestBody UserDto userDto) {
 
@@ -36,15 +37,24 @@ public class RegisterController {
 
 	@PostMapping("/login")
 	public ResponseEntity<Responce> login(@RequestBody UserLoginDto userLogin) {
-		
-		User result=service.login(userLogin);
-		if(result !=null)
-		{
+
+		User result = service.login(userLogin);
+		if (result != null) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful", 200));
-		}
-		else
-		{
+		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("UnSuccessful", 400));
 		}
 	}
+
+	@PostMapping("/forgetpass")
+	public ResponseEntity<Responce> forgetpass(@RequestBody ForgetPaswordDto forgetpass) {
+		User result = service.forgerPassword(forgetpass);
+
+		if (result != null) {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful", 200));
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("UnSuccessful", 400));
+		}
+	}
+
 }

@@ -3,6 +3,7 @@ package com.bridgelabz.fundoo.serviceimplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bridgelabz.fundoo.dto.ForgetPaswordDto;
 import com.bridgelabz.fundoo.dto.UserDto;
 import com.bridgelabz.fundoo.dto.UserLoginDto;
 import com.bridgelabz.fundoo.model.User;
@@ -31,7 +32,6 @@ public class UserServiceImplementation implements UserService {
 
 		userRepository.insertData(user.getFirst_name(),user.getLast_name(),user.getPhone_number(),
 				user.getEmail(),user.getPassword());
-		//System.out.println(user.getPhoneNumber());
 		return user;
 		
 	}
@@ -49,6 +49,19 @@ public class UserServiceImplementation implements UserService {
 		}
 		else
 			return null;
+	}
+
+	@Override
+	public User forgerPassword(ForgetPaswordDto forgetpass) {
+
+		String emailFromDB=user.getEmail();
+		String emailFromDto=forgetpass.getEmail();
+		
+		if(emailFromDB.equals(emailFromDto))
+		{
+			return user;
+		}
+		return null;
 	}
 
 }
