@@ -47,8 +47,8 @@ public class RegisterController {
 	}
 
 	@PostMapping("/forgetpass")
-	public ResponseEntity<Responce> forgetpass(@RequestBody ForgetPaswordDto forgetpass) {
-		User result = service.forgerPassword(forgetpass);
+	public ResponseEntity<Responce> forgetpass(@RequestBody ForgetPaswordDto password) {
+		User result = service.forgerPassword(password);
 
 		if (result != null) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful", 200));

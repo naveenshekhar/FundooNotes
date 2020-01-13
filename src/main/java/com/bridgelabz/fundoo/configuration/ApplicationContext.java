@@ -2,8 +2,7 @@ package com.bridgelabz.fundoo.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.bridgelabz.fundoo.serviceimplementation.UserServiceImplementation;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 public class ApplicationContext {
@@ -13,4 +12,8 @@ public class ApplicationContext {
 //	{
 //		return new UserServiceImplementation();
 //	}
+	@Bean
+	public BCryptPasswordEncoder getPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
