@@ -29,7 +29,6 @@ public class NotesController {
 			System.out.println("hello else");
 			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
 					.body(new Responce("Notes Already Exist", 400, notesdto));
-
 		}
 	}
 
