@@ -6,7 +6,6 @@
  * @File    : User.java 
  ****************************************/
 
-
 package com.bridgelabz.fundoo.model;
 
 import javax.persistence.Column;
@@ -21,7 +20,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "user")
-@Setter 
+@Setter
 @Getter
 public class User {
 
@@ -37,7 +36,7 @@ public class User {
 	@Column(name = "last_name", nullable = true)
 	private String last_name;
 
-	@Column(name = "phone_number",nullable = false, unique = true)
+	@Column(name = "phone_number", nullable = false, unique = true)
 	@NotEmpty(message = "enter phone number")
 	private String phone_number;
 

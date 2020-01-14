@@ -16,4 +16,7 @@ public class ApplicationContext {
 	public BCryptPasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	
+
 }

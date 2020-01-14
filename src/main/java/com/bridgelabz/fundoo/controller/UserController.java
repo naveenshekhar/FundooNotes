@@ -15,7 +15,7 @@ import com.bridgelabz.fundoo.responces.Responce;
 import com.bridgelabz.fundoo.service.UserService;
 
 @RestController
-public class RegisterController {
+public class UserController {
 
 	@Autowired
 	private UserService service;

@@ -69,9 +69,9 @@ public class UserServiceImplementation implements UserService {
 		String userEmail = detailFrmDb.getEmail();
 		if (password.getPassword().equals(password.getConfirm_pass())) {
 			
-			String responce="http://localhost:8080/updatePassword"+
-			JwtGenerator.
-			//userRepository.changepassword(password.getPassword(), userEmail);
+//			String responce="http://localhost:8080/updatePassword"+
+//			JwtGenerator.
+//			userRepository.changepassword(password.getPassword(), userEmail);
 			return user;
 		}
 		return null;

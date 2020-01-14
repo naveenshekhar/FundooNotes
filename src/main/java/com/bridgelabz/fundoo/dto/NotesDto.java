@@ -11,14 +11,4 @@ public class NotesDto {
 
 	private String description;
 
-//	private boolean isPinned;
-//
-//	private boolean isArchived;
-//
-//	private Date date;
-//	
-//	private int userId;
-//	
-//	private int collaboratorId;
-
 }

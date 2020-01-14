@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,14 +24,38 @@ public class Notes {
 	@Column(name = "id")
 	private int noteId;
 	
-	
+	@Column(name = "title", nullable = false)
+	@NotEmpty(message = "Title can't be empty..!!")
 	private String title;
+	
+	@Column(name = "description", nullable = true)
+	@NotEmpty(message = "your note is empty")
 	private String description;
-	private int userId;
+	
+	@Column(name = "userId", nullable = true)
+	@NotEmpty(message = "enter user id")
+	private int  userId;
+	
+	@Column(name = "isPinned", nullable = true, columnDefinition = "boolean default false" )
 	private boolean isPinned;
+	
+	@Column(name = "isArchived", nullable = true, columnDefinition = "boolean default false")
 	private boolean isArchived;
+	
+	@Column(name = "creationTime", nullable = false)
+	@NotEmpty(message = "enter note creation time")
 	private Date creationTime;
+	
+	@Column(name = "reminder", nullable = true, columnDefinition = "boolean default false")
+	@NotEmpty(message = "Enter if you want any reminder")
+	private Date reminder;
+	
+	@Column(name = "color", nullable = true, columnDefinition = "boolean default false")
+	@NotEmpty(message = "enter note creation time")
 	private String color;
-//	private int collaboratorId;
+	
+	
+//	private int collaboratorId; ///will add after creating collaborator table
+//	private int labelId;
 //	private String image;
 }
