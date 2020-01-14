@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoo.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,7 +45,7 @@ public class Notes {
 	
 	@Column(name = "creationTime", nullable = false)
 	@NotEmpty(message = "enter note creation time")
-	private Date creationTime;
+	private Timestamp creationTime;
 	
 	@Column(name = "reminder", nullable = true, columnDefinition = "boolean default false")
 	@NotEmpty(message = "Enter if you want any reminder")

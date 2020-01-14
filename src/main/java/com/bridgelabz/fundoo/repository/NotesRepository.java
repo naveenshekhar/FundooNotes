@@ -17,5 +17,4 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 	@Query(value = "insert into Notes (title,description,userId,reminder,color)"
 			+ "values (?,?,?,?,?)", nativeQuery = true)
 	void insertData(String title, String description, int userId, Date reminder, String color);
-
 }

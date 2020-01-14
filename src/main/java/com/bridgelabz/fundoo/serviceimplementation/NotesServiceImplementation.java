@@ -8,7 +8,6 @@ import com.bridgelabz.fundoo.model.Notes;
 import com.bridgelabz.fundoo.repository.NotesRepository;
 import com.bridgelabz.fundoo.service.NotesService;
 
-
 @Service
 public class NotesServiceImplementation implements NotesService {
 
@@ -21,8 +20,8 @@ public class NotesServiceImplementation implements NotesService {
 
 		notes.setTitle(noteDto.getTitle());
 		notes.setDescription(noteDto.getDescription());
-		notesrepo.insertData(notes.getTitle(), notes.getDescription(), notes.getUserId(),
-				notes.getReminder(), notes.getColor());
+		notesrepo.insertData(notes.getTitle(), notes.getDescription(), notes.getUserId(), notes.getReminder(),
+				notes.getColor());
 		return notes;
 	}
 
