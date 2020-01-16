@@ -21,7 +21,7 @@ public class UserServiceImplementation implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	JwtGenerator tokenGenerator;
+	private JwtGenerator tokenGenerator;
 
 	@Override
 	public User register(UserDto userdto) {
@@ -44,6 +44,7 @@ public class UserServiceImplementation implements UserService {
 	@Override
 	public User login(UserLoginDto userLogin) {
 
+		//String token = tokenGenerator.jwtToken();
 		String emailFromDto = userLogin.getEmail();
 		User user = userRepository.checkByEmail(userLogin.getEmail());
 		String emailFromDB = user.getEmail();
