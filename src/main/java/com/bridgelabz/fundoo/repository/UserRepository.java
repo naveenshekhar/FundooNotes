@@ -30,12 +30,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	// Finding email_ID
 	@Query(value = "SELECT first_name,last_name,phone_number,email,password from user where email=?", nativeQuery = true)
 	User FindByEmail(String email);
-	
-	//Find by Id..
-	
+
+	// Find by Id..
 	@Query(value = "SELECT * FROM user WHERE id=?", nativeQuery = true)
 	User findById(long id);
-	
-	@Query(value = "",nativeQuery = true)
-	User hi();
+
+	@Modifying
+	@Transactional
+	@Query(value = "update user set is_verified =true where user_id=?", nativeQuery = true)
+	void updateIsVarified(Long id);
 }

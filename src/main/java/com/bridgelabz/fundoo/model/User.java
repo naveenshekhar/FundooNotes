@@ -51,4 +51,8 @@ public class User {
 	
 	@Column(name = "isVrified",columnDefinition = "boolean default false")
 	private boolean isVerified;
+	
+	
+	@Column(name = "isVrified",columnDefinition = "boolean default false")
+	private boolean isUserAvailable;
 }

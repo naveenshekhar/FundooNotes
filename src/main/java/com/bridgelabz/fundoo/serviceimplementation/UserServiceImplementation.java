@@ -1,8 +1,5 @@
 package com.bridgelabz.fundoo.serviceimplementation;
 
-import java.util.Optional;
-
-import org.apache.juli.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,33 +13,40 @@ import com.bridgelabz.fundoo.model.User;
 import com.bridgelabz.fundoo.repository.UserRepository;
 import com.bridgelabz.fundoo.service.UserService;
 import com.bridgelabz.fundoo.utility.JwtGenerator;
+import com.bridgelabz.fundoo.utility.SpringMail;
 
 @Service
 public class UserServiceImplementation implements UserService {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImplementation.class);
-	User user = new User();
+
+	@Autowired
+	User user;
 	@Autowired
 	BCryptPasswordEncoder bcrypt;
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
 	private JwtGenerator tokenGenerator;
+	@Autowired
+	private SpringMail mail;
 
 	@Override
 	public User register(UserDto userdto) {
+
 		user.setFirst_name(userdto.getFirst_name());
-
 		user.setLast_name(userdto.getLast_name());
-
 		user.setPhone_number(userdto.getPhone_number());
-
 		user.setEmail(userdto.getEmail());
-
 		user.setPassword(bcrypt.encode(userdto.getPassword()));
+		userRepository.save(user);
 
-		userRepository.insertData(user.getFirst_name(), user.getLast_name(), user.getPhone_number(), user.getEmail(),
-				bcrypt.encode(user.getPassword()));
+		User isUserAvailableTwo = userRepository.FindByEmail(userdto.getEmail());
+		String email = user.getEmail();
+		String response = "http://localhost:8080/verify/" + tokenGenerator.jwtToken(isUserAvailableTwo.getId());
+		mail.sendMail(email, response);
+//		userRepository.insertData(user.getFirst_name(), user.getLast_name(), user.getPhone_number(), user.getEmail(),
+//				bcrypt.encode(user.getPassword()));
 		return user;
 
 	}
@@ -50,7 +54,6 @@ public class UserServiceImplementation implements UserService {
 	@Override
 	public User login(UserLoginDto userLogin) {
 
-		// String token = tokenGenerator.jwtToken();
 		String emailFromDto = userLogin.getEmail();
 		User user = userRepository.checkByEmail(userLogin.getEmail());
 		String emailFromDB = user.getEmail();
@@ -70,33 +73,25 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public User forgerPassword(ForgetPaswordDto password) {
+	public User forgetPassword(ForgetPaswordDto password, String email) {
 
-		User detailFrmDb = userRepository.checkByEmail(password.getEmail());
-		String userEmail = detailFrmDb.getEmail();
-		if (password.getPassword().equals(password.getConfirm_pass())) {
+		// tokenGenerator
+//		User isUserAvailable = userRepository.FindByEmail(email);
 
-//			String responce="http://localhost:8080/updatePassword"+
-//			JwtGenerator.
-//			userRepository.changepassword(password.getPassword(), userEmail);
-			return user;
-		}
+//		User detailFrmDb = userRepository.checkByEmail(password.getEmail());
+//		String userEmail = detailFrmDb.getEmail();
+//		if (password.getPassword().equals(password.getConfirm_pass())) {
+//
+//			String responce = "http://localhost:8080/updatePassword"
+//					+ JwtGenerator
+//			return user;
+//		}
+
 		return null;
 	}
 
 	public boolean verify(String token) {
 		try {
-			/*
-			 * loggger.info("Id Varification", (long) jwtGenerator.parse(token)); long id =
-			 * jwtGenerator.parse(token); System.out.println(token); User isIdValied =
-			 * userRepository.findById(id); if (!isIdValied.isVerified()) {
-			 * userRepository.updateIsVarified(id); System.out.println("save details");
-			 * return user; } else { System.out.println("already varified"); return user; }
-			 * } catch (JWTVerificationException | IllegalArgumentException |
-			 * UnsupportedEncodingException e) { e.printStackTrace(); }
-			 * 
-			 * return null;
-			 */
 			logger.info("id in verification", tokenGenerator.parse(token));
 			long id = tokenGenerator.parse(token);
 			User isIdVerified = userRepository.findById(id);
@@ -105,7 +100,7 @@ public class UserServiceImplementation implements UserService {
 				System.out.println("save details");
 				return true;
 			} else {
-				
+
 				return false;
 
 			}

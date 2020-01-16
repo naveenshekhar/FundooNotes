@@ -11,7 +11,8 @@ public interface UserService {
 
 	User login(UserLoginDto userLogin);
 
-	User forgerPassword(ForgetPaswordDto forgetpass);
-
 	boolean verify(String token);
+
+
+	User forgetPassword(ForgetPaswordDto password, String email);
 }
