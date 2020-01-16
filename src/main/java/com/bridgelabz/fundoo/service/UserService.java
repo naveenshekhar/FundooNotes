@@ -13,4 +13,5 @@ public interface UserService {
 
 	User forgerPassword(ForgetPaswordDto forgetpass);
 
+	boolean verify(String token);
 }

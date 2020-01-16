@@ -47,4 +47,8 @@ public class User {
 	@Column(name = "password", nullable = false)
 	@NotEmpty(message = "password cannot be empty..!!")
 	private String password;
+	
+	
+	@Column(name = "isVrified",columnDefinition = "boolean default false")
+	private boolean isVerified;
 }

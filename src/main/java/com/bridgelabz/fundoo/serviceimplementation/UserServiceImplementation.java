@@ -1,5 +1,10 @@
 package com.bridgelabz.fundoo.serviceimplementation;
 
+import java.util.Optional;
+
+import org.apache.juli.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +20,7 @@ import com.bridgelabz.fundoo.utility.JwtGenerator;
 @Service
 public class UserServiceImplementation implements UserService {
 
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImplementation.class);
 	User user = new User();
 	@Autowired
 	BCryptPasswordEncoder bcrypt;
@@ -44,7 +50,7 @@ public class UserServiceImplementation implements UserService {
 	@Override
 	public User login(UserLoginDto userLogin) {
 
-		//String token = tokenGenerator.jwtToken();
+		// String token = tokenGenerator.jwtToken();
 		String emailFromDto = userLogin.getEmail();
 		User user = userRepository.checkByEmail(userLogin.getEmail());
 		String emailFromDB = user.getEmail();
@@ -69,7 +75,7 @@ public class UserServiceImplementation implements UserService {
 		User detailFrmDb = userRepository.checkByEmail(password.getEmail());
 		String userEmail = detailFrmDb.getEmail();
 		if (password.getPassword().equals(password.getConfirm_pass())) {
-			
+
 //			String responce="http://localhost:8080/updatePassword"+
 //			JwtGenerator.
 //			userRepository.changepassword(password.getPassword(), userEmail);
@@ -78,17 +84,35 @@ public class UserServiceImplementation implements UserService {
 		return null;
 	}
 
-//	public User verify(String token) {
-//		try {
-//			Log.info("id in verification"+tokenGenerator.parse(token));
-//			long id=tokenGenerator.parse(token);
-//	/*		User userinfo=userRepository.findById(id);    */
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
-	
-	
+	public boolean verify(String token) {
+		try {
+			/*
+			 * loggger.info("Id Varification", (long) jwtGenerator.parse(token)); long id =
+			 * jwtGenerator.parse(token); System.out.println(token); User isIdValied =
+			 * userRepository.findById(id); if (!isIdValied.isVerified()) {
+			 * userRepository.updateIsVarified(id); System.out.println("save details");
+			 * return user; } else { System.out.println("already varified"); return user; }
+			 * } catch (JWTVerificationException | IllegalArgumentException |
+			 * UnsupportedEncodingException e) { e.printStackTrace(); }
+			 * 
+			 * return null;
+			 */
+			logger.info("id in verification", tokenGenerator.parse(token));
+			long id = tokenGenerator.parse(token);
+			User isIdVerified = userRepository.findById(id);
+
+			if (!isIdVerified.isVerified()) {
+				System.out.println("save details");
+				return true;
+			} else {
+				
+				return false;
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }
