@@ -5,8 +5,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 public class SpringMail {
+
 	@Autowired
-	JavaMailSender javaMailSender;
+	JavaMailSender javamailsender;
 
 	public void sendMail(String email, String response) {
 		try {
@@ -14,10 +15,9 @@ public class SpringMail {
 			simpleMsg.setTo(email);
 			simpleMsg.setSubject("Verify mail");
 			simpleMsg.setText(response);
-			javaMailSender.send(simpleMsg);
+			javamailsender.send(simpleMsg);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 }

@@ -14,5 +14,6 @@ public interface UserService {
 	boolean verify(String token);
 
 
-	User forgetPassword(ForgetPaswordDto password, String email);
+	User forgetPassword(ForgetPaswordDto password);
+
 }

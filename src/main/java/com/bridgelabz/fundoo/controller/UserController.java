@@ -3,6 +3,7 @@ package com.bridgelabz.fundoo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,4 +58,15 @@ public class UserController {
 		}
 	}
 
+	@PostMapping("/verify/{token}")
+	public ResponseEntity<Responce> verify(@PathVariable("token") String token)
+	{
+	 boolean result=service.verify(token);
+	 if(result)
+	 {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful", 200,result));
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("UnSuccessful", 400));
+		}
+	}
 }

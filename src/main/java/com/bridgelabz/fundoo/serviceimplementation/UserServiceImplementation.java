@@ -20,8 +20,7 @@ public class UserServiceImplementation implements UserService {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImplementation.class);
 
-	@Autowired
-	User user;
+	User user = new User();
 	@Autowired
 	BCryptPasswordEncoder bcrypt;
 	@Autowired
@@ -34,22 +33,47 @@ public class UserServiceImplementation implements UserService {
 	@Override
 	public User register(UserDto userdto) {
 
-		user.setFirst_name(userdto.getFirst_name());
-		user.setLast_name(userdto.getLast_name());
-		user.setPhone_number(userdto.getPhone_number());
+		user.setFirstName(userdto.getFirstName());
+		user.setLastName(userdto.getLastName());
+		user.setPhoneNumber(userdto.getPhoneNumber());
 		user.setEmail(userdto.getEmail());
 		user.setPassword(bcrypt.encode(userdto.getPassword()));
 		userRepository.save(user);
-
 		User isUserAvailableTwo = userRepository.FindByEmail(userdto.getEmail());
+		System.out.println("1");
 		String email = user.getEmail();
+		System.out.println(email);
+		System.out.println(isUserAvailableTwo.getId());
 		String response = "http://localhost:8080/verify/" + tokenGenerator.jwtToken(isUserAvailableTwo.getId());
+		System.out.println("4" + response);
 		mail.sendMail(email, response);
-//		userRepository.insertData(user.getFirst_name(), user.getLast_name(), user.getPhone_number(), user.getEmail(),
-//				bcrypt.encode(user.getPassword()));
+		userRepository.insertData(user.getFirstName(), user.getLastName(), user.getPhoneNumber(), user.getEmail(),
+				bcrypt.encode(user.getPassword()));
 		return user;
 
 	}
+//	@Override
+//	public User verify(String token) {
+//		try {
+//			System.out.println("Inside");
+//			loggger.info("Id Varification", (long) jwtGenerator.parse(token));
+//			long id = jwtGenerator.parse(token);
+//			System.out.println(token);
+//			User isIdValied = userRepository.findById(id);
+//			if (!isIdValied.isVerified()) {
+//				userRepository.updateIsVarified(id);
+//				System.out.println("save details");
+//				return user;
+//			} else {
+//				System.out.println("already varified");
+//				return user;
+//			}
+//		} catch (JWTVerificationException | IllegalArgumentException | UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return null;
+//	}
 
 	@Override
 	public User login(UserLoginDto userLogin) {
@@ -60,10 +84,10 @@ public class UserServiceImplementation implements UserService {
 		String passwordFrmDb = user.getPassword();
 		String pswrdfrmDTO = userLogin.getPassword();
 
-		boolean is_pswrd_matched = BCrypt.checkpw(passwordFrmDb, pswrdfrmDTO);
+		boolean isPswrdMatched = BCrypt.checkpw(passwordFrmDb, pswrdfrmDTO);
 
 		if (emailFromDB.equals(emailFromDto)) {
-			if (is_pswrd_matched) {
+			if (isPswrdMatched) {
 				System.out.println(user);
 				return user;
 			}
@@ -73,10 +97,10 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public User forgetPassword(ForgetPaswordDto password, String email) {
+	public User forgetPassword(ForgetPaswordDto email) {
 
 		// tokenGenerator
-//		User isUserAvailable = userRepository.FindByEmail(email);
+		User isUserAvailable = userRepository.FindByEmail(email);
 
 //		User detailFrmDb = userRepository.checkByEmail(password.getEmail());
 //		String userEmail = detailFrmDb.getEmail();
@@ -91,18 +115,21 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	public boolean verify(String token) {
+		System.out.println("3");
 		try {
+			System.out.println("2");
 			logger.info("id in verification", tokenGenerator.parse(token));
+			System.out.println("t" + token);
 			long id = tokenGenerator.parse(token);
 			User isIdVerified = userRepository.findById(id);
 
 			if (!isIdVerified.isVerified()) {
+				userRepository.updateIsVarified(id);
 				System.out.println("save details");
 				return true;
 			} else {
 
 				return false;
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

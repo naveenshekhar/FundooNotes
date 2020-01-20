@@ -29,18 +29,18 @@ public class User {
 	@Column(name = "id")
 	private long id;
 
-	@Column(name = "first_name", nullable = false)
+	@Column(name = "firstName", nullable = false)
 	@NotEmpty(message = "Enter first name first")
-	private String first_name;
+	private String firstName;
 
-	@Column(name = "last_name", nullable = true)
-	private String last_name;
+	@Column(name = "lastName", nullable = true)
+	private String lastName;
 
-	@Column(name = "phone_number", nullable = false, unique = true)
+	@Column(name = "phoneNumber", nullable = false)
 	@NotEmpty(message = "enter phone number")
-	private String phone_number;
+	private String phoneNumber;
 
-	@Column(name = "email", nullable = false, unique = true)
+	@Column(name = "email", nullable = false)
 	@NotEmpty(message = "Email cannot be empty..!!")
 	private String email;
 
@@ -53,6 +53,6 @@ public class User {
 	private boolean isVerified;
 	
 	
-	@Column(name = "isVrified",columnDefinition = "boolean default false")
+	@Column(name = "isUserAvailable",columnDefinition = "boolean default false")
 	private boolean isUserAvailable;
 }

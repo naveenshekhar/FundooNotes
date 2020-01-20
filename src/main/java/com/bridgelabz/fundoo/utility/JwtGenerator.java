@@ -14,10 +14,10 @@ public class JwtGenerator {
 	private static final String SECRET = "qwjsfhggfg";
 
 	public String jwtToken(long l) {
-		String token = null;
+		String token=null;
 		try {
-			token = JWT.create().withClaim("email", l).sign(com.auth0.jwt.algorithms.Algorithm.HMAC256(SECRET));
-
+			 token = JWT.create().withClaim("email", l).sign(com.auth0.jwt.algorithms.Algorithm.HMAC256(SECRET));
+			System.out.println(token);
 		} catch (IllegalArgumentException | JWTCreationException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
