@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.bridgelabz.fundoo.dto.ForgetPaswordDto;
 import com.bridgelabz.fundoo.dto.UserDto;
 import com.bridgelabz.fundoo.dto.UserLoginDto;
@@ -47,9 +48,9 @@ public class UserController {
 		}
 	}
 
-	@PostMapping("/forgetpass")
-	public ResponseEntity<Responce> forgetpass(@RequestBody ForgetPaswordDto password) {
-		User result = service.forgetPassword(password);
+	@PostMapping("/updatePassword/{token}")
+	public ResponseEntity<Responce> updatePassword(@RequestBody ForgetPaswordDto password,@PathVariable("token") String token) throws JWTVerificationException, Exception {
+		User result = service.updatePassword(password, token);
 
 		if (result != null) {
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful", 200));

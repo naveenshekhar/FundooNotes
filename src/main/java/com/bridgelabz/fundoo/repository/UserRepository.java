@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import com.bridgelabz.fundoo.dto.ForgetPaswordDto;
 import com.bridgelabz.fundoo.model.User;
 
 @Repository
@@ -18,13 +20,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	// Login
 	@Query(value = "select * from user where email=?", nativeQuery = true)
-	User checkByEmail(String email);
+	User checkByEmail(ForgetPaswordDto email);
 
 	// Forget password
 	@Modifying
 	@Transactional
-	@Query(value = "UPDATE user set password = ? where email = ?", nativeQuery = true)
-	void changepassword(String password, String email);
+	@Query(value = "UPDATE user set password = ? where id = ?", nativeQuery = true)
+	void changepassword(String password, long id);
 
 	// Finding email_ID
 	@Query(value = "SELECT * from user where email=?", nativeQuery = true)
@@ -36,6 +38,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	@Modifying
 	@Transactional
-	@Query(value = "update user set is_vrified = true where user_id=?", nativeQuery = true)
+	@Query(value = "update user set is_verified = true where id=?", nativeQuery = true)
 	void updateIsVarified(Long id);
 }

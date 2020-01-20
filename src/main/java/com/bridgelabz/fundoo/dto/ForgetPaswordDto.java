@@ -12,6 +12,5 @@ import lombok.Setter;
 public class ForgetPaswordDto {
 	
 	private String password;
-	private String confirm_pass;
-    private String email;
+	private String reEnterPassword;
 }

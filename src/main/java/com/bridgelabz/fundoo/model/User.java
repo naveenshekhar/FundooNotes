@@ -49,7 +49,7 @@ public class User {
 	private String password;
 	
 	
-	@Column(name = "isVrified",columnDefinition = "boolean default false")
+	@Column(name = "isVerified",columnDefinition = "boolean default false")
 	private boolean isVerified;
 	
 	
