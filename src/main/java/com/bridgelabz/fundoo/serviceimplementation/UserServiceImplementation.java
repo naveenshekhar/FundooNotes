@@ -22,7 +22,7 @@ public class UserServiceImplementation implements UserService {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImplementation.class);
 
-	User user = new User();
+	private User user = new User();
 	@Autowired
 	BCryptPasswordEncoder bcrypt;
 	@Autowired
@@ -46,8 +46,6 @@ public class UserServiceImplementation implements UserService {
 			String email = user.getEmail();
 			String response = "http://localhost:8080/verify/" + tokenGenerator.jwtToken(isUserAvailableTwo.getId());
 			mail.sendMail(email, response);
-			userRepository.insertData(user.getFirstName(), user.getLastName(), user.getPhoneNumber(), user.getEmail(),
-					bcrypt.encode(user.getPassword()));
 			return user;
 		}
 		return null;
@@ -61,16 +59,17 @@ public class UserServiceImplementation implements UserService {
 		String emailFromDB = user.getEmail();
 		String passwordFrmDb = user.getPassword();
 		String pswrdfrmDTO = userLogin.getPassword();
-
-		boolean isPswrdMatched = BCrypt.checkpw(passwordFrmDb, pswrdfrmDTO);
-
 		if (emailFromDB.equals(emailFromDto)) {
+			System.out.println("1 " + passwordFrmDb);
+			System.out.println("2 " + pswrdfrmDTO);
+			boolean isPswrdMatched = bcrypt.matches(passwordFrmDb, pswrdfrmDTO);
+			System.out.println("3 " + isPswrdMatched);
 			if (isPswrdMatched) {
 				System.out.println(user);
 				return user;
 			}
-		} else
-			return null;
+			return user;
+		}
 		return null;
 	}
 
@@ -106,6 +105,7 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	public boolean verify(String token) {
+		System.out.println("Hello");
 		try {
 			logger.info("id in verification", tokenGenerator.parse(token));
 			System.out.println("inside verify method..");

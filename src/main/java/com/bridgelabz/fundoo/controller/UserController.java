@@ -22,7 +22,7 @@ public class UserController {
 	@Autowired
 	private UserService service;
 
-	@PostMapping("/register")
+	@PostMapping("/register/")
 	public ResponseEntity<Responce> register(@RequestBody UserDto userDto) {
 
 		User user = service.register(userDto);
@@ -49,7 +49,8 @@ public class UserController {
 	}
 
 	@PostMapping("/updatePassword/{token}")
-	public ResponseEntity<Responce> updatePassword(@RequestBody ForgetPaswordDto password,@PathVariable("token") String token) throws JWTVerificationException, Exception {
+	public ResponseEntity<Responce> updatePassword(@RequestBody ForgetPaswordDto password,
+			@PathVariable("token") String token) throws JWTVerificationException, Exception {
 		User result = service.updatePassword(password, token);
 
 		if (result != null) {
@@ -60,12 +61,10 @@ public class UserController {
 	}
 
 	@PostMapping("/verify/{token}")
-	public ResponseEntity<Responce> verify(@PathVariable("token") String token)
-	{
-	 boolean result=service.verify(token);
-	 if(result)
-	 {
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful", 200,result));
+	public ResponseEntity<Responce> verify(@PathVariable("token") String token) {
+		boolean result = service.verify(token);
+		if (result) {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful", 200, result));
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("UnSuccessful", 400));
 		}
