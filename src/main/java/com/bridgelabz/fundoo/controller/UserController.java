@@ -28,7 +28,7 @@ public class UserController {
 		User user = service.register(userDto);
 		if (user != null) {
 			return ResponseEntity.status(HttpStatus.CREATED)
-					.body(new Responce("Registration Successfully", 200, userDto));
+					.body(new Responce("Registered Successfully", 200, userDto));
 		} else {
 			System.out.println("hello else");
 			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED)

@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.bridgelabz.fundoo.dto.NotesDto;
 import com.bridgelabz.fundoo.model.Notes;
 import com.bridgelabz.fundoo.responces.Responce;
@@ -26,10 +25,8 @@ public class NotesController {
 			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(new Responce("Notes created Successfully", 200, notesdto));
 		} else {
-			System.out.println("hello else");
 			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
 					.body(new Responce("Notes Already Exist", 400, notesdto));
 		}
 	}
-
 }
