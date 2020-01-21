@@ -60,10 +60,7 @@ public class UserServiceImplementation implements UserService {
 		String passwordFrmDb = user.getPassword();
 		String pswrdfrmDTO = userLogin.getPassword();
 		if (emailFromDB.equals(emailFromDto)) {
-			System.out.println("1 " + passwordFrmDb);
-			System.out.println("2 " + pswrdfrmDTO);
 			boolean isPswrdMatched = bcrypt.matches(passwordFrmDb, pswrdfrmDTO);
-			System.out.println("3 " + isPswrdMatched);
 			if (isPswrdMatched) {
 				System.out.println(user);
 				return user;
