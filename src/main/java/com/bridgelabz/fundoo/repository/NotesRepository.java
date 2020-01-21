@@ -19,6 +19,9 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 			+ "values (?,?,?,?,?)", nativeQuery = true)
 	void insertData(String title, String description, int userId, Date reminder, String color);
 
+	@Query(value = "select * from notes where note_id=?", nativeQuery = true)
+	public Notes findById(long note_id);
+	
 	@Modifying
 	@Transactional
 	@Query(value = "delete from note where title=?", nativeQuery = true)

@@ -29,15 +29,24 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	void changepassword(String password, long id);
 
 	// Finding email_ID
+	@Modifying
+	@Transactional
 	@Query(value = "SELECT * from user where email=?", nativeQuery = true)
 	User FindByEmail(String email);
 
 	// Find by Id..
+	@Modifying
+	@Transactional
 	@Query(value = "SELECT * FROM user WHERE id=?", nativeQuery = true)
-	User findById(long id);
+	  User findbyId(Long id);
+
+//	@Modifying
+//	@Transactional
+//	@Query(value = "SELECT * FROM user WHERE id=?", nativeQuery = true)
+//	  User findById(Long id);
 
 	@Modifying
 	@Transactional
-	@Query(value = "update user set is_verified = true where id=?", nativeQuery = true)
+	@Query(value = "update user set is_verified   true where id=?", nativeQuery = true)
 	void updateIsVarified(Long id);
 }

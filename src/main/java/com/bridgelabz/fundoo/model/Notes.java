@@ -2,6 +2,7 @@ package com.bridgelabz.fundoo.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ public class Notes {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int noteId;
+	private Long noteId;
 	
 	@Column(name = "title", nullable = false)
 	@NotEmpty(message = "Title can't be empty..!!")
@@ -54,6 +55,10 @@ public class Notes {
 	@Column(name = "color", nullable = true, columnDefinition = "boolean default false")
 	@NotEmpty(message = "enter note creation time")
 	private String color;
+
+	
+
+	
 	
 	
 //	private int collaboratorId; ///will add after creating collaborator table

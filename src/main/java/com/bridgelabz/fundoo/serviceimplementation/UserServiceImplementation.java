@@ -119,8 +119,8 @@ public class UserServiceImplementation implements UserService {
 			throws JWTVerificationException, Exception, Exception {
 		if (forgetpass.getPassword().equals(forgetpass.getReEnterPassword())) {
 			logger.info("id in verification", tokenGenerator.parse(token));
-			long id = tokenGenerator.parse(token);
-			User isIdVerified = userRepository.findById(id);
+			Long id = tokenGenerator.parse(token);
+			User isIdVerified = userRepository.findbyId(id);
 			if (isIdVerified.isVerified()) {
 				isIdVerified.setPassword(forgetpass.getPassword());
 				userRepository.changepassword(isIdVerified.getPassword(), id);
