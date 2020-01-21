@@ -13,11 +13,11 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 public class JwtGenerator {
 	private static final String SECRET = "qwjsfhggfg";
 
-	public String jwtToken(long l) {
-		String token=null;
+
+	public String jwtToken(long a) {
+		String token = null;
 		try {
-			 token = JWT.create().withClaim("email", l).sign(com.auth0.jwt.algorithms.Algorithm.HMAC256(SECRET));
-			System.out.println(token);
+			token = JWT.create().withClaim("userId", a).sign(Algorithm.HMAC512(SECRET));
 		} catch (IllegalArgumentException | JWTCreationException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -28,7 +28,7 @@ public class JwtGenerator {
 			throws JWTVerificationException, IllegalArgumentException, UnsupportedEncodingException {
 		Long userId = 0l;
 		if (string != null) {
-			userId = JWT.require(Algorithm.HMAC512(SECRET)).build().verify(string).getClaim("Id").asLong();
+			userId = JWT.require(Algorithm.HMAC512(SECRET)).build().verify(string).getClaim("userId").asLong();
 		}
 		return userId;
 	}

@@ -3,6 +3,7 @@ package com.bridgelabz.fundoo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,8 @@ import com.bridgelabz.fundoo.model.User;
 import com.bridgelabz.fundoo.responces.Responce;
 import com.bridgelabz.fundoo.service.UserService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class UserController {
 
@@ -24,7 +27,7 @@ public class UserController {
 
 	@PostMapping("/register/")
 	public ResponseEntity<Responce> register(@RequestBody UserDto userDto) {
-
+		System.out.println("11111");
 		User user = service.register(userDto);
 		if (user != null) {
 			return ResponseEntity.status(HttpStatus.CREATED)
@@ -60,13 +63,24 @@ public class UserController {
 		}
 	}
 
-	@PostMapping("/verify/{token}")
-	public ResponseEntity<Responce> verify(@PathVariable("token") String token) {
-		boolean result = service.verify(token);
-		if (result) {
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful", 200, result));
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("UnSuccessful", 400));
-		}
+	/*
+	 * @PostMapping("/verify/{token}")
+	 * 
+	 * @ApiOperation(value = "Api to verify",response = Responce.class) public
+	 * ResponseEntity<Responce> verify(@PathVariable("token") String token) {
+	 * System.out.println("111"+token); User result = service.verifyUser(token);
+	 * System.out.println(result); if (result!=null) { return
+	 * ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful",
+	 * 200, result)); } else { return
+	 * ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new
+	 * Responce("UnSuccessful", 400)); } }
+	 */
+	@GetMapping("/verify/{token}")
+	public ResponseEntity<Responce> verifyUser(@PathVariable("token") String token) {
+		System.out.println("Token for verify " + token);
+		User user = service.verifyUser(token);
+
+		return (user) != null ? ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Verified", 200))
+				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("Not verified", 400));
 	}
 }

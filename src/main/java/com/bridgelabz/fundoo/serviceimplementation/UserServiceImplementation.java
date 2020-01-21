@@ -43,17 +43,47 @@ public class UserServiceImplementation implements UserService {
 			user.setPassword(bcrypt.encode(userdto.getPassword()));
 			userRepository.save(user);
 			User isUserAvailableTwo = userRepository.FindByEmail(userdto.getEmail());
+			System.out.println(isUserAvailableTwo.getId());
 			String email = user.getEmail();
+			System.out.println(email);
 			String response = "http://localhost:8080/verify/" + tokenGenerator.jwtToken(isUserAvailableTwo.getId());
+			System.out.println(response);
 			mail.sendMail(email, response);
 			return user;
+		}
+		return null;
+	}
+	@Override
+	public User verifyUser(String token) {
+	System.out.println("11");
+		try {
+			
+			logger.info("id in verification", tokenGenerator.parse(token));
+			System.out.println("111111");
+			System.out.println("inside verify method..");
+			long id = tokenGenerator.parse(token);
+			System.out.println("id"+id);
+			System.out.println(token);
+			
+			User isIdVerified = userRepository.getOne(id);
+			System.out.println("id"+id+" "+isIdVerified.getId());
+			if (!isIdVerified.isVerified()) {
+				System.out.println("1");
+				userRepository.updateIsVarified(isIdVerified.getId());
+				System.out.println(id+" "+isIdVerified.getId());
+				System.out.println("save details");
+				return user;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
 
 	@Override
 	public User login(UserLoginDto userLogin) {
-
 		String emailFromDto = userLogin.getEmail();
 		User user = userRepository.FindByEmail(userLogin.getEmail());
 		String emailFromDB = user.getEmail();
@@ -101,24 +131,6 @@ public class UserServiceImplementation implements UserService {
 
 	}
 
-	public boolean verify(String token) {
-		System.out.println("Hello");
-		try {
-			logger.info("id in verification", tokenGenerator.parse(token));
-			System.out.println("inside verify method..");
-			long id = tokenGenerator.parse(token);
-			User isIdVerified = userRepository.findById(id);
-			if (!isIdVerified.isVerified()) {
-				userRepository.updateIsVarified(id);
-				System.out.println("save details");
-				return true;
-			} else {
-				return false;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
+	
 
 }

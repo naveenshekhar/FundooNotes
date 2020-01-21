@@ -25,24 +25,38 @@ public class NotesServiceImplementation implements NotesService {
 	@Autowired
 	private UserDto userdto;
 
-//	@Autowired
-//	private JwtGenerator tokenGenerator;
+	@Autowired
+	private JwtGenerator tokenGenerator;
 
 	@Override
-	public Notes create(NotesDto noteDto) {
-
-	//	String token = tokenGenerator.parse(token);
-		User user = users.FindByEmail(userdto.getEmail());
-
-		if (user != null) {
-			Notes notes = new Notes();
-			notes.setTitle(noteDto.getTitle());
-			notes.setDescription(noteDto.getDescription());
-			notesrepo.insertData(notes.getTitle(), notes.getDescription(), notes.getUserId(), notes.getReminder(),
-					notes.getColor());
-			return notes;
+	public Notes create(NotesDto noteDto, String token) {
+		try {
+			long parseToken = tokenGenerator.parse(token);
+			User user = users.findById(parseToken);
+			if (user != null) {
+				Notes notes = new Notes();
+				notes.setTitle(noteDto.getTitle());
+				notes.setDescription(noteDto.getDescription());
+				notesrepo.insertData(notes.getTitle(), notes.getDescription(), notes.getUserId(), notes.getReminder(),
+						notes.getColor());
+				return notes;
+			}
+		} catch (Exception e) {
+         System.out.println(e);
 		}
 		return null;
+	}
+
+	@Override
+	public Notes delete(NotesDto noteDto) {
+		return notes;
+
+	}
+
+	@Override
+	public Notes update(NotesDto noteDto) {
+		return notes;
+
 	}
 
 }

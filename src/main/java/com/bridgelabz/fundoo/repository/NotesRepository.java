@@ -19,4 +19,12 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 			+ "values (?,?,?,?,?)", nativeQuery = true)
 	void insertData(String title, String description, int userId, Date reminder, String color);
 
+	@Modifying
+	@Transactional
+	@Query(value = "delete from note where title=?", nativeQuery = true)
+	void delete(String title);
+
+	@Query(value = "update note set title=?,description=? where id=?", nativeQuery = true)
+	void update(String title, String description, long id);
+
 }

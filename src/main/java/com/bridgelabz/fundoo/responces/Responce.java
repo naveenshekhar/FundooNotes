@@ -16,6 +16,11 @@ public class Responce {
 		this.message = message;
 		this.statuscode = statuscode;
 	}
+	
+
+	public Responce() {
+		super();
+	}
 
 	public String getMessage() {
 		return message;

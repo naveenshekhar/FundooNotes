@@ -12,7 +12,7 @@ public interface UserService {
 
 	User login(UserLoginDto userLogin);
 
-	boolean verify(String token);
+	User verifyUser(String token);
 
 	User forgetPassword(String email);
 	

@@ -8,16 +8,18 @@ public class SpringMail {
 
 	@Autowired
 	JavaMailSender javamailsender;
+	
+	SimpleMailMessage simpleMsg = new SimpleMailMessage();
 
 	public void sendMail(String email, String response) {
-		try {
-			SimpleMailMessage simpleMsg = new SimpleMailMessage();
+		System.out.println("111");
 			simpleMsg.setTo(email);
+			System.out.println("121");
 			simpleMsg.setSubject("Verify mail");
+			System.out.println("131");
 			simpleMsg.setText(response);
+			System.out.println("141");
 			javamailsender.send(simpleMsg);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			System.out.println("151");
 	}
 }
