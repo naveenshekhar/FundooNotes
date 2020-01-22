@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -34,10 +36,6 @@ public class Notes {
 	@NotEmpty(message = "your note is empty")
 	private String description;
 	
-	@Column(name = "userId", nullable = true)
-	@NotEmpty(message = "enter user id")
-	private int  userId;
-	
 	@Column(name = "isPinned", nullable = true, columnDefinition = "boolean default false" )
 	private boolean isPinned;
 	
@@ -52,16 +50,17 @@ public class Notes {
 	@NotEmpty(message = "Enter if you want any reminder")
 	private Date reminder;
 	
-	@Column(name = "color", nullable = true, columnDefinition = "boolean default false")
-	@NotEmpty(message = "enter note creation time")
+	@Column(name = "color", nullable = true)
+	@NotEmpty(message = "enter the color")
 	private String color;
 
 	
 
 	
 	
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	private User user;
 	
-//	private int collaboratorId; ///will add after creating collaborator table
-//	private int labelId;
-//	private String image;
+	
 }

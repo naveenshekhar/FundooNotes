@@ -3,8 +3,7 @@ package com.bridgelabz.fundoo.serviceimplementation;
 
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,31 +33,30 @@ public class NotesServiceImplementation implements NotesService {
 
 	@Autowired
 	private JwtGenerator tokenGenerator;
-
+    Date date = new Date();
+Long time = date.getTime();
+Timestamp timeStamp = new Timestamp(time);
 
 	@Override
 	public Notes create(NotesDto noteDto, String token) {
 		try {
-			Long parseToken = tokenGenerator.parse(token);
+			long parseToken = tokenGenerator.parse(token);
 			User user = users.findbyId(parseToken);
 			if (user != null) {
 				Notes notes = new Notes();
 				notes.setTitle(noteDto.getTitle());
 				notes.setDescription(noteDto.getDescription());
-//				notes.setColor("red");
-//				notes.setArchived(false);
-//				notes.setCreationTime(Timestamp.from(null));
-				
-				notesrepo.insertData(notes.getTitle(), notes.getDescription(), notes.getUserId(), notes.getReminder(),
-						notes.getColor());
+				notes.setUser(user);
+				notesrepo.insertData(notes.getColor(),notes.getTitle(),notes.getDescription(), notes.isPinned(),notes.isArchived(),timeStamp, parseToken);
 				return notes;
 			}
 		} catch (Exception e) {
          System.out.println(e);
-         
 		}
 		return null;
 	}
+
+
 
 	@Override
 	public Notes delete(NotesDto noteDto) {
@@ -70,6 +68,24 @@ public class NotesServiceImplementation implements NotesService {
 	public Notes update(NotesDto noteDto) {
 		return notes;
 
+	}
+
+	@Override
+	public boolean pin() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean trash(int noteId, String token) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(int noteId, String token) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

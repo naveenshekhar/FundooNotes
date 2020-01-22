@@ -12,4 +12,11 @@ public interface NotesService {
 
 	Notes update(NotesDto noteDto);
 
+	
+	boolean pin(); 
+	
+	boolean trash(int noteId, String token);
+	
+	boolean delete(int noteId,String token);
+	
 }
