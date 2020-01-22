@@ -49,9 +49,11 @@ Timestamp timeStamp = new Timestamp(time);
 				notes.setUser(user);
 				notesrepo.insertData(notes.getColor(),notes.getTitle(),notes.getDescription(), notes.isPinned(),notes.isArchived(),timeStamp, parseToken);
 				return notes;
+		
 			}
 		} catch (Exception e) {
          System.out.println(e);
+ 		System.out.println("ert");
 		}
 		return null;
 	}
