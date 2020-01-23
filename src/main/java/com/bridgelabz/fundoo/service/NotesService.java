@@ -11,11 +11,13 @@ public interface NotesService {
 
 	Notes update(long noteId, NotesDto notesDto, String token);
 
-	boolean pin(); 
-	
-	boolean trash(int noteId, String token);
-	
-	boolean delete(int noteId,String token);
+	boolean pin(String token, Long noteId);
+
+	boolean trash(long noteId, String token);
+
+	boolean delete(int noteId, String token);
+
+	boolean isArchive(Long noteId, String token);
 
 	
 

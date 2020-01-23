@@ -33,10 +33,6 @@ public class Notes {
 		this.creationTime = creationTime;
 	}
 
-
-
-
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -56,6 +52,9 @@ public class Notes {
 	@Column(name = "isArchived", nullable = true, columnDefinition = "boolean default false")
 	private boolean isArchived;
 	
+	@Column(name = "isTrashed", nullable = true, columnDefinition = "boolean default false")
+	private boolean isTrashed;
+	
 	@Column(name = "creationTime", nullable = false)
 	@NotEmpty(message = "enter note creation time")
 	private Timestamp creationTime;
@@ -68,10 +67,6 @@ public class Notes {
 	@NotEmpty(message = "enter the color")
 	private String color;
 
-	
-
-	
-	
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	private User user;
