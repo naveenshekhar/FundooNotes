@@ -1,6 +1,5 @@
 package com.bridgelabz.fundoo.repository;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.transaction.Transactional;
@@ -20,7 +19,7 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 			+ "values (?,?,?,?,?,?,?)", nativeQuery = true)
 	void insertData(String color,String title, String description,boolean is_archived,boolean is_pinned,Timestamp creation_time,long user_id);
 
-	@Query(value = "select * from notes where note_id=?", nativeQuery = true)
+	@Query(value = "select * from note where id=?", nativeQuery = true)
 	public Notes findbyId(long note_id);
 	
 	@Modifying
@@ -28,6 +27,8 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 	@Query(value = "DELETE FROM note WHERE id=?, nativeQuery = true",nativeQuery = true)
 	void delete(int id);
 	
+	@Modifying
+	@Transactional
 	@Query(value = "update note set title=?,description=? where id=?", nativeQuery = true)
 	void update(String title, String description, long id);
 

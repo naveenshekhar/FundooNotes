@@ -104,10 +104,11 @@ public class UserServiceImplementation implements UserService {
 	public User forgetPassword(String email) {
 
 		User isUserAvailable = userRepository.FindByEmail(email);
-
+System.out.println("user"+isUserAvailable+email );
 		if (isUserAvailable != null) {
 			if (isUserAvailable.isVerified()) {
-				String response = "http://localhost:8080/update/" + tokenGenerator.jwtToken(user.getId());
+				System.out.println("enterd");
+				String response = "http://localhost:8080/update/" + tokenGenerator.jwtToken(isUserAvailable.getId());
 				mail.sendMail(email, response);
 				return user;
 			}

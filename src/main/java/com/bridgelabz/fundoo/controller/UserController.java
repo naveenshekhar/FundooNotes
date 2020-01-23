@@ -16,6 +16,7 @@ import com.bridgelabz.fundoo.dto.UserLoginDto;
 import com.bridgelabz.fundoo.model.User;
 import com.bridgelabz.fundoo.responces.Responce;
 import com.bridgelabz.fundoo.service.UserService;
+import com.bridgelabz.fundoo.utility.JwtGenerator;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -25,15 +26,16 @@ public class UserController {
 	@Autowired
 	private UserService service;
 
+	@Autowired
+	private JwtGenerator tokenGenerator;
+
 	@PostMapping("/register/")
 	public ResponseEntity<Responce> register(@RequestBody UserDto userDto) {
-		System.out.println("11111");
 		User user = service.register(userDto);
 		if (user != null) {
 			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(new Responce("Registered Successfully", 200, userDto));
 		} else {
-			System.out.println("hello else");
 			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED)
 					.body(new Responce("User Already Exist", 400, userDto));
 
@@ -45,7 +47,8 @@ public class UserController {
 
 		User result = service.login(userLogin);
 		if (result != null) {
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful", 200));
+			return ResponseEntity.status(HttpStatus.ACCEPTED)
+					.body(new Responce("Successful token : " + tokenGenerator.jwtToken(result.getId()), 200));
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("UnSuccessful", 400));
 		}
@@ -63,21 +66,26 @@ public class UserController {
 		}
 	}
 
-	/*
-	 * @PostMapping("/verify/{token}")
-	 * 
-	 * @ApiOperation(value = "Api to verify",response = Responce.class) public
-	 * ResponseEntity<Responce> verify(@PathVariable("token") String token) {
-	 * System.out.println("111"+token); User result = service.verifyUser(token);
-	 * System.out.println(result); if (result!=null) { return
-	 * ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful",
-	 * 200, result)); } else { return
-	 * ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new
-	 * Responce("UnSuccessful", 400)); } }
-	 */
+	@PostMapping("/forgetPassword")
+	public ResponseEntity<Responce> forgetPassword(@RequestBody String email) {
+		
+		User user = service.forgetPassword(email);
+		
+		if(user !=null)
+		{
+			 return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Successful", 200));
+		}
+		else
+		{
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("user does not exist", 400));
+		}
+		
+//		return (user) != null ? ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Verified", 200))
+//				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("Not verified", 400));
+	}
+
 	@GetMapping("/verify/{token}")
 	public ResponseEntity<Responce> verifyUser(@PathVariable("token") String token) {
-		System.out.println("Token for verify " + token);
 		User user = service.verifyUser(token);
 
 		return (user) != null ? ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Verified", 200))

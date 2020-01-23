@@ -15,6 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,7 +46,8 @@ public class User {
 	@Column(name = "email", nullable = false)
 	@NotEmpty(message = "Email cannot be empty..!!")
 	private String email;
-
+   
+	@JsonIgnore
 	@Column(name = "password", nullable = false)
 	@NotEmpty(message = "password cannot be empty..!!")
 	private String password;

@@ -1,8 +1,6 @@
 package com.bridgelabz.fundoo.model;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +21,22 @@ import lombok.Setter;
 @Setter
 public class Notes {
 	
+	public Timestamp getCreationTime() {
+		return creationTime;
+	}
+
+
+
+
+
+	public void setCreationTime(Timestamp creationTime) {
+		this.creationTime = creationTime;
+	}
+
+
+
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -48,7 +62,7 @@ public class Notes {
 	
 	@Column(name = "reminder", nullable = true, columnDefinition = "boolean default false")
 	@NotEmpty(message = "Enter if you want any reminder")
-	private Date reminder;
+	private boolean reminder;
 	
 	@Column(name = "color", nullable = true)
 	@NotEmpty(message = "enter the color")
