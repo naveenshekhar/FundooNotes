@@ -26,9 +26,6 @@ public class Notes {
 	}
 
 
-
-
-
 	public void setCreationTime(Timestamp creationTime) {
 		this.creationTime = creationTime;
 	}

@@ -46,17 +46,15 @@ public class User {
 	@Column(name = "email", nullable = false)
 	@NotEmpty(message = "Email cannot be empty..!!")
 	private String email;
-   
+
 	@JsonIgnore
 	@Column(name = "password", nullable = false)
 	@NotEmpty(message = "password cannot be empty..!!")
 	private String password;
-	
-	
-	@Column(name = "isVerified",columnDefinition = "boolean default false")
+
+	@Column(name = "isVerified", columnDefinition = "boolean default false")
 	private boolean isVerified;
-	
-	
-	@Column(name = "isUserAvailable",columnDefinition = "boolean default false")
+
+	@Column(name = "isUserAvailable", columnDefinition = "boolean default false")
 	private boolean isUserAvailable;
 }

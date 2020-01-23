@@ -1,7 +1,5 @@
 package com.bridgelabz.fundoo.controller;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +24,6 @@ public class NotesController {
 
 	@PostMapping("/notes/create")
 	public ResponseEntity<Responce> create(@Valid @RequestBody NotesDto noteDto, @RequestHeader String token) {
-		Notes notes = service.create(noteDto, token);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Responce("Notes created Successfully", 200));
 	}
 
@@ -55,8 +52,7 @@ public class NotesController {
 	}
 
 	@PutMapping("/pin/{noteId}/")
-	public ResponseEntity<Responce> pin(@RequestHeader("token") String token,
-			@PathVariable("noteId") Long noteId) {
+	public ResponseEntity<Responce> pin(@RequestHeader("token") String token, @PathVariable("noteId") Long noteId) {
 
 		boolean result = service.pin(token, noteId);
 
@@ -66,11 +62,10 @@ public class NotesController {
 			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Responce("Failed to update...!!!", 400));
 		}
 	}
-	
+
 	@PutMapping("/isArchive/{token}")
-	public ResponseEntity<Responce> isArchive(@RequestParam Long noteId,
-			@PathVariable("token") String token) {
-      System.out.println("Inside controller");
+	public ResponseEntity<Responce> isArchive(@RequestParam Long noteId, @PathVariable("token") String token) {
+		System.out.println("Inside controller");
 		boolean result = service.isArchive(noteId, token);
 
 		if (result) {
@@ -79,11 +74,9 @@ public class NotesController {
 			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Responce("Failed to update...!!!", 400));
 		}
 	}
-	
-	
+
 	@PutMapping("/Trash/{noteId}/")
-	public ResponseEntity<Responce> isTrash(@RequestHeader("token") String token,
-			@PathVariable("noteId") Long noteId) {
+	public ResponseEntity<Responce> isTrash(@RequestHeader("token") String token, @PathVariable("noteId") Long noteId) {
 
 		boolean result = service.trash(noteId, token);
 
@@ -93,6 +86,5 @@ public class NotesController {
 			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Responce("Failed to update...!!!", 400));
 		}
 	}
-	
-	
+
 }

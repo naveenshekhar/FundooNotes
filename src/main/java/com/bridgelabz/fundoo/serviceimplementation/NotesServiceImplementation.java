@@ -41,7 +41,7 @@ public class NotesServiceImplementation implements NotesService {
 			long parseToken = tokenGenerator.parse(token);
 			User user = users.findbyId(parseToken);
 			if (user != null) {
-				Notes notes = new Notes();
+				notes = new Notes();
 				notes.setTitle(noteDto.getTitle());
 				notes.setDescription(noteDto.getDescription());
 				notes.setUser(user);

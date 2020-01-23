@@ -18,8 +18,6 @@ import com.bridgelabz.fundoo.responces.Responce;
 import com.bridgelabz.fundoo.service.UserService;
 import com.bridgelabz.fundoo.utility.JwtGenerator;
 
-import io.swagger.annotations.ApiOperation;
-
 @RestController
 public class UserController {
 
