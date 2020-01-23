@@ -30,10 +30,10 @@ public class NotesController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(new Responce("Notes created Successfully", 200));
 	}
 
-	@DeleteMapping("/deleteNotes")
-	public ResponseEntity<Responce> deleteNotes(@RequestBody int id) {
+	@DeleteMapping("/deleteNotes/{token}")
+	public ResponseEntity<Responce> deleteNotes(@RequestParam Long noteId, String token) {
 
-		Notes notes = service.delete(id);
+		Long notes = service.delete(noteId, token);
 		if (notes != null) {
 			return ResponseEntity.status(HttpStatus.CREATED)
 					.body(new Responce("Notes Deleated Successfully", 200, notes));

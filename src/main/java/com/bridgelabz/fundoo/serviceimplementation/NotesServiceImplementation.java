@@ -196,13 +196,32 @@ public class NotesServiceImplementation implements NotesService {
 	}
 
 	@Override
-	public boolean delete(int noteId, String token) {
-		return false;
-	}
+	public Long delete(Long noteId, String token) {
 
-	@Override
-	public Notes delete(int id) {
+		long parseToken;
+		try {
+			parseToken = tokenGenerator.parse(token);
+			User user = users.findbyId(parseToken);
+			Notes note = notesrepo.findbyId(noteId);
+			if (user != null) {
+				if (note != null) {
+					notesrepo.delete(noteId);
+					return noteId;
+				} else {
+					return null;
+				}
+			}
+		} catch (JWTVerificationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
-	}
 
+	}
 }

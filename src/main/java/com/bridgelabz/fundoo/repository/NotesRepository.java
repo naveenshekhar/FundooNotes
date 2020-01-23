@@ -25,8 +25,8 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 
 	@Modifying
 	@Transactional
-	@Query(value = "DELETE FROM note WHERE id=?, nativeQuery = true", nativeQuery = true)
-	void delete(int id);
+	@Query(value = "DELETE FROM note WHERE id=?", nativeQuery = true)
+	void delete(long id);
 
 	@Modifying
 	@Transactional
@@ -37,16 +37,14 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 	@Transactional
 	@Query(value = "update note set is_pinned=? where id=?", nativeQuery = true)
 	void isPinned(boolean pin, long id);
-	
+
 	@Modifying
 	@Transactional
 	@Query(value = "update note set is_archived=? where id=?", nativeQuery = true)
 	void isArchived(boolean status, Long id);
-	
+
 	@Modifying
 	@Transactional
 	@Query(value = "update note set is_trashed=? where id=?", nativeQuery = true)
 	void isTrashed(boolean status, Long id);
-
-
 }

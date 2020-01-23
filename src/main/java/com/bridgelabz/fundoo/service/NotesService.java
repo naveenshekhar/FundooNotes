@@ -7,7 +7,6 @@ public interface NotesService {
 
 	Notes create(NotesDto noteDto, String token);
 
-	Notes delete(int id);
 
 	Notes update(long noteId, NotesDto notesDto, String token);
 
@@ -15,7 +14,7 @@ public interface NotesService {
 
 	boolean trash(long noteId, String token);
 
-	boolean delete(int noteId, String token);
+	Long delete(Long noteId, String token);
 
 	boolean isArchive(Long noteId, String token);
 
