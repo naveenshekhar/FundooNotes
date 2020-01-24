@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LabelDto 
-{
-	private String lableName;
-	
+public class DeleteLabelDto {
+
+	private long labelId;
 }
