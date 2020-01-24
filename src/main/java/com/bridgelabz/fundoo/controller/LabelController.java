@@ -26,7 +26,7 @@ public class LabelController {
 		if (labels != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(new Responce("Registered Successfully", 200));
 		} else {
-			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Responce("Failed To create.", 400));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("Failed To create.", 400));
 		}
 	}
 
@@ -36,7 +36,7 @@ public class LabelController {
 		if (labels != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(new Responce("Deleted Successfully", 200));
 		} else {
-			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Responce("Failed To Delete..!!", 400));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("Failed To Delete..!!", 400));
 		}
 	}
 	

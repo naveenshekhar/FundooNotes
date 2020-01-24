@@ -29,5 +29,12 @@ public interface LabelRepository extends JpaRepository<Labels, Long>{
 	@Query(value = "select * from lables where user_id=?",nativeQuery = true)
 	List<Labels> getAllLabel(long id);
 	
+//	@Transactional
+//	@Modifying
+//	
+//	@Query(value = "alter table noteLabel add foreign key (label_id) reference label(label_id)", nativeQuery = true)
+//	void labelMapToNote(label_id)
+//	;
+	
 
 }

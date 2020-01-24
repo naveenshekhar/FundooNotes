@@ -1,12 +1,10 @@
 package com.bridgelabz.fundoo.serviceimplementation;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.bridgelabz.fundoo.dto.DeleteLabelDto;
 import com.bridgelabz.fundoo.dto.LabelDto;
 import com.bridgelabz.fundoo.model.Labels;
@@ -42,14 +40,13 @@ public class LabelServiceImpl implements LabelService {
 				l.setLabelName(labelDto.getLableName());
 				l.setLabelUser(user);
 				labelRepository.createLabel(l.getLabelName(), l.getLabelUser());
-				return label;
+				System.out.println(l.getLabelName());
+				return l;
+			} else {
+				return null;
 			}
 
-		} catch (JWTVerificationException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -67,14 +64,10 @@ public class LabelServiceImpl implements LabelService {
 				l.setLabelId(deletelabelDto.getLabelId());
 				l.setLabelUser(user);
 				labelRepository.deleteLabel(l.getLabelId());
-				return label;
+				return l;
 			}
 
-		} catch (JWTVerificationException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -82,21 +75,17 @@ public class LabelServiceImpl implements LabelService {
 
 	@Override
 	public Labels getAllLabels(String token) {
-		
+
 		try {
 			Long parseToken = tokenGenerator.parse(token);
 			User user = userRepo.findbyId(parseToken);
-			System.out.println("id :"+user.getId());
+			System.out.println("id :" + user.getId());
 			if (user != null) {
-			List<Labels> list=labelRepository.getAllLabel(user.getId());
+				List<Labels> list = labelRepository.getAllLabel(user.getId());
 				return label;
 			}
 
-		} catch (JWTVerificationException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
