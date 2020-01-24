@@ -77,9 +77,6 @@ public class UserController {
 		{
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("user does not exist", 400));
 		}
-		
-//		return (user) != null ? ResponseEntity.status(HttpStatus.ACCEPTED).body(new Responce("Verified", 200))
-//				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responce("Not verified", 400));
 	}
 
 	@GetMapping("/verify/{token}")
