@@ -16,11 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.fundoo.dto.CollaboratorDto;
 import com.bridgelabz.fundoo.model.Collaborator;
-import com.bridgelabz.fundoo.model.Notes;
 import com.bridgelabz.fundoo.responces.Responce;
-import com.bridgelabz.fundoo.service.CollaboratorService;
 import com.bridgelabz.fundoo.serviceimplementation.CollaboratorServiceImplementation;
-import com.bridgelabz.fundoo.utility.JwtGenerator;
 
 import io.swagger.annotations.ApiOperation;
 

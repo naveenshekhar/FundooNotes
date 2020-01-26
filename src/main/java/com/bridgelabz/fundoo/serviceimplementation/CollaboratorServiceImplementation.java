@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.fundoo.dto.CollaboratorDto;
@@ -19,8 +18,8 @@ import com.bridgelabz.fundoo.service.CollaboratorService;
 import com.bridgelabz.fundoo.utility.JwtGenerator;
 
 @Service
-public class CollaboratorServiceImplementation implements CollaboratorService{
-	
+public class CollaboratorServiceImplementation implements CollaboratorService {
+
 	@Autowired
 	private JwtGenerator jwtGenerator;
 
@@ -40,7 +39,6 @@ public class CollaboratorServiceImplementation implements CollaboratorService{
 			Notes note = noteRepository.findbyId(noteId);
 			Collaborator collaboratorDB = collaboratorRepository.findOneByEmail(collaboratorDto.getEmail(), noteId);
 			if (note != null && collaboratorDB == null) {
-//				collaborator.setEmail(collaboratorDB.getEmail());
 				BeanUtils.copyProperties(collaboratorDto, collaborator);
 				collaborator.setNoteId(note);
 				collaboratorRepository.addCollaborator(collaborator.getNoteId(), collaborator.getEmail(), noteId);
@@ -97,6 +95,4 @@ public class CollaboratorServiceImplementation implements CollaboratorService{
 
 		return null;
 	}
-
-
 }

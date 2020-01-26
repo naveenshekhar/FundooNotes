@@ -2,7 +2,6 @@ package com.bridgelabz.fundoo.repository;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -24,7 +23,7 @@ public interface CollaboratorRepository
 		Collaborator findById(Long id);
 
 		@Modifying
-		@Query(value = "delete from collaborator where id=? and noteid=?",nativeQuery=true)
+		@Query(value = "delete from collaborator where collaborator_id=? and noteid=?",nativeQuery=true)
 		void deleteCollaborator(long collaboratorId,long noteId);
 
 		@Query(value = "select * from collaborator where noteid=?", nativeQuery = true)
