@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoo.model;
 
+import java.util.Optional;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +35,8 @@ public class Collaborator {
 	@ManyToOne
 	@JoinColumn(name = "id")
 	private Notes noteId;
+
+
+	private String Email;
 	
-	// JoinColumn(name = "id")
 }

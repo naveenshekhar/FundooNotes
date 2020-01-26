@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoo.repository;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -44,7 +45,12 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 	void isArchived(boolean status, Long id);
 
 	@Modifying
-	@Transactional
+	@Transactional<Notes> void searchAllNoteById(long userId, long noteId);
 	@Query(value = "update note set is_trashed=? where id=?", nativeQuery = true)
 	void isTrashed(boolean status, Long id);
+
+	
+	@Query(value = "select * from notes where note_id=?", nativeQuery = true)
+	public List<Notes> searchAllNoteByNoteId(long userId, long noteId);
+
 }
