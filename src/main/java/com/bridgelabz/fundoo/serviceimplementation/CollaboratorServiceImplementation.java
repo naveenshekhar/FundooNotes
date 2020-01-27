@@ -3,7 +3,6 @@ package com.bridgelabz.fundoo.serviceimplementation;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,15 +32,14 @@ public class CollaboratorServiceImplementation implements CollaboratorService {
 	private CollaboratorRepository collaboratorRepository;
 
 	@Override
-	public Collaborator addCollaborator(CollaboratorDto collaboratorDto, String token, long noteId) {
+	public Collaborator addCollaborator(CollaboratorDto collaboratorDto, String token, Long noteId) {
 		try {
 			Collaborator collaborator = new Collaborator();
 			Notes note = noteRepository.findbyId(noteId);
 			Collaborator collaboratorDB = collaboratorRepository.findOneByEmail(collaboratorDto.getEmail(), noteId);
 			if (note != null && collaboratorDB == null) {
-				BeanUtils.copyProperties(collaboratorDto, collaborator);
-				collaborator.setNoteId(note);
-				collaboratorRepository.addCollaborator(collaborator.getNoteId(), collaborator.getEmail(), noteId);
+				collaboratorRepository.addCollaborator(collaborator.getNoteId(), collaborator.getCollaboratorEmail(),
+						noteId);
 				return collaborator;
 			} else {
 				return null;
@@ -54,14 +52,14 @@ public class CollaboratorServiceImplementation implements CollaboratorService {
 	}
 
 	@Override
-	public Collaborator deleteCollaborator(long collaboratorId, String token, long noteId) {
+	public Optional<Collaborator> deleteCollaborator(Long collaboratorId, String token, Long noteId) {
 		try {
-			long userId = jwtGenerator.parse(token);
+			Long userId = jwtGenerator.parse(token);
 			Optional<User> user = userRepository.findById(userId);
 			if (user != null) {
 				Optional<Notes> note = noteRepository.findById(noteId);
 				if (note != null) {
-					Collaborator collaborator = collaboratorRepository.findById(collaboratorId);
+					Optional<Collaborator> collaborator = collaboratorRepository.findById(collaboratorId);
 					if (collaborator != null) {
 						collaboratorRepository.deleteCollaborator(collaboratorId, noteId);
 						return collaborator;
@@ -78,7 +76,7 @@ public class CollaboratorServiceImplementation implements CollaboratorService {
 	}
 
 	@Override
-	public List<Collaborator> getAllCollaborators(String token, long noteId) {
+	public List<Collaborator> getAllCollaborators(String token, Long noteId) {
 		try {
 			long userId = jwtGenerator.parse(token);
 			if (userId != 0) {
@@ -92,7 +90,6 @@ public class CollaboratorServiceImplementation implements CollaboratorService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 }

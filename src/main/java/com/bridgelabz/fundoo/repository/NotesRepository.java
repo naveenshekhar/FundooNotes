@@ -31,6 +31,7 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 
 	@Modifying
 	@Transactional
+	
 	@Query(value = "update note set title=?,description=? where id=?", nativeQuery = true)
 	void update(String title, String description, long id);
 
@@ -45,7 +46,7 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 	void isArchived(boolean status, Long id);
 
 	@Modifying
-	@Transactional<Notes> void searchAllNoteById(long userId, long noteId);
+	@Transactional
 	@Query(value = "update note set is_trashed=? where id=?", nativeQuery = true)
 	void isTrashed(boolean status, Long id);
 

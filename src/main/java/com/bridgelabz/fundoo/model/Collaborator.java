@@ -1,6 +1,5 @@
 package com.bridgelabz.fundoo.model;
 
-import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +23,7 @@ public class Collaborator {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "collaborator_id")
-	private long collaboratorId;
+	private Long collaboratorId;
 
 	@Column(name = "collaborator_email", nullable = true)
 	@NotEmpty(message = "Email can't be empty")
@@ -37,6 +36,4 @@ public class Collaborator {
 	private Notes noteId;
 
 
-	private String Email;
-	
 }

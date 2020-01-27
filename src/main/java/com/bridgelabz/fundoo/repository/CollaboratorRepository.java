@@ -1,17 +1,22 @@
 package com.bridgelabz.fundoo.repository;
 
 import java.util.List;
+import java.util.Optional;
 
+import javax.transaction.Transactional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.fundoo.model.Collaborator;
 import com.bridgelabz.fundoo.model.Notes;
 
-public interface CollaboratorRepository 
+@Repository
+@Transactional
+public interface CollaboratorRepository extends JpaRepository<Collaborator, Long>
 {
-
 		@Query(value = "select * from collaborator where email=? and noteid=?",nativeQuery=true)
 		Collaborator findOneByEmail(String email, long noteId);
 
@@ -20,7 +25,7 @@ public interface CollaboratorRepository
 		void addCollaborator(Notes notes,String email,Long noteid);
 		
 		@Query(value = "select * from collaborator where id=?",nativeQuery=true)
-		Collaborator findById(Long id);
+		 Optional<Collaborator> findById(Long id);
 
 		@Modifying
 		@Query(value = "delete from collaborator where collaborator_id=? and noteid=?",nativeQuery=true)
@@ -28,6 +33,4 @@ public interface CollaboratorRepository
 
 		@Query(value = "select * from collaborator where noteid=?", nativeQuery = true)
 		List<Collaborator> getAllNoteCollaborators(long noteId);
-
-	
 }

@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabz.fundoo.dto.CollaboratorDto;
 import com.bridgelabz.fundoo.model.Collaborator;
 import com.bridgelabz.fundoo.responces.Responce;
-import com.bridgelabz.fundoo.serviceimplementation.CollaboratorServiceImplementation;
-
+import com.bridgelabz.fundoo.service.CollaboratorService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
@@ -26,11 +26,11 @@ import io.swagger.annotations.ApiOperation;
 public class CollaboratorController {
 
 	@Autowired
-	private CollaboratorServiceImplementation collaboratorServiceInf;
+	private CollaboratorService collaboratorServiceInf;
 
 	@PostMapping("/addCollaborator/{noteId}")
 	private ResponseEntity<Responce> addCollaborator(@RequestBody CollaboratorDto collaboratorDto,
-			@PathVariable("noteId") long noteId, @RequestHeader("token") String token) {
+			@PathVariable("noteId") Long noteId, @RequestHeader("token") String token) {
 
 		Collaborator result = collaboratorServiceInf.addCollaborator(collaboratorDto, token, noteId);
 
@@ -44,7 +44,7 @@ public class CollaboratorController {
 	public ResponseEntity<Responce> deleteCollaborator(@PathVariable(value = "noteId") Long noteId,
 			@RequestHeader("token") String token, @RequestHeader("collaboratorId") Long collaboratorId) {
 
-		Collaborator result = collaboratorServiceInf.deleteCollaborator(collaboratorId, token, noteId);
+		Optional<Collaborator> result = collaboratorServiceInf.deleteCollaborator(collaboratorId, token, noteId);
 		return result != null
 				? ResponseEntity.status(HttpStatus.OK).body(new Responce("delete collabrator sucessfully!!!", 200))
 				: ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Responce("Something went wrong!!!", 400));
