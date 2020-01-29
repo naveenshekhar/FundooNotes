@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "aws.bucket.name",
+    "type": "java.lang.String",
+    "description": "A description for 'aws.bucket.name'"
+  },
+  {
+    "name": "aws.accesskey",
+    "type": "java.lang.String",
+    "description": "A description for 'aws.accesskey'"
+  },
+  {
+    "name": "aws.keyid",
+    "type": "java.lang.String",
+    "description": "A description for 'aws.keyid'"
+  },
+  {
+    "name": "cloud.aws.region",
+    "type": "java.lang.String",
+    "description": "A description for 'cloud.aws.region'"
+  },
+  {
+    "name": "spring.mail.smtp.starttls.enable",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.mail.smtp.starttls.enable'"
+  },
+  {
+    "name": "aws.region",
+    "type": "java.lang.String",
+    "description": "A description for 'aws.region'"
+  }
+]}
