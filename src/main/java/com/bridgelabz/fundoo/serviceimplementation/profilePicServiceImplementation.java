@@ -9,6 +9,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.bridgelabz.fundoo.configuration.AWSConfiguration.S3Config;
 import com.bridgelabz.fundoo.model.ProfilePic;
 import com.bridgelabz.fundoo.model.User;
 import com.bridgelabz.fundoo.repository.ProfilePicRepository;
@@ -33,6 +34,8 @@ public class profilePicServiceImplementation implements ProfilePicService {
 
 	@Autowired
 	private AmazonS3 amazonClient;
+	
+	private S3Config s3;
 
 	@Override
 	public ProfilePic storeObjectInS3(MultipartFile file, String fileName, String contentType, String token) {
@@ -47,17 +50,22 @@ public class profilePicServiceImplementation implements ProfilePicService {
 				objectMetadata.setContentType(contentType);
 				objectMetadata.setContentLength(file.getSize());
 				System.out.println("3 before error");
-				System.out.println("bucketName :" + bucketName);
-				System.out.println("fileName :" + fileName);
-				System.out.println("file :" + file);
-				System.out.println("objectMetadata :" + objectMetadata);
+				System.out.println("4 bucketName :" + bucketName);
+				System.out.println("5 fileName :" + fileName);
+				System.out.println("6 file :" + file);
+				System.out.println("7 objectMetadata :" + objectMetadata);
 				PutObjectRequest objectRequest = new PutObjectRequest(bucketName, fileName, file.getInputStream(),
 						objectMetadata);
-				System.out.println("4 error expecting");
-				System.out.println("objectRequest :" + objectRequest);
-
+				System.out.println("8 error expecting");
+				System.out.println("9 objectRequest :" + objectRequest);
+				
+				System.out.println("10 amazonClient :"+amazonClient.putObject(objectRequest));
+				System.out.println("11 "+s3.s3client().putObject(objectRequest));
+				s3.s3client().putObject(objectRequest);
+				
 				amazonClient.putObject(objectRequest);
-				System.out.println("error 404 :" + amazonClient.putObject(objectRequest));
+			
+				System.out.println("12 error 404 :" + amazonClient.putObject(objectRequest));
 				profilePicRepository.saveData(fileName, user.getId());
 				return profile;
 			}
