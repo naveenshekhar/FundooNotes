@@ -29,8 +29,8 @@ public class ProfilePicController {
 		System.out.println("1");
 		ProfilePic profile = profilePicService.storeObjectInS3(file, file.getOriginalFilename(), file.getContentType(),
 				token);
-		System.out.println("1.1 :"+profile);
-		if (profile != null) {
+		System.out.println("1.1 :"+profile.getUserLabel());
+		if (profile.getUserLabel() != null) {
 			System.out.println("2");
 			return ResponseEntity.status(HttpStatus.OK)
 					.body(new Responce("profile pic added Successfully", 200, profile));
@@ -41,5 +41,32 @@ public class ProfilePicController {
 		}
 
 	}
+	
+//	@Autowired
+//	private ProfilePicService profilePicService;
+//
+//	@PostMapping("/uploadprofilepic")
+//	@ApiOperation(value = "Api to upload profile pic of User for Fundoonotes", response = Responses.class)
+//	public ResponseEntity<Responses> addProfilePic(@ModelAttribute MultipartFile file,
+//			@RequestHeader("token") String token) {
+//
+//		ProfilePic profile = profilePicService.storeObjectInS3(file, file.getOriginalFilename(), file.getContentType(),
+//				token);
+//		return profile.getUserLabel() != null
+//				? ResponseEntity.status(HttpStatus.OK).body(new Responses("profile added succussefully", 200, profile))
+//				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responses("something went Wrong ", 400));
+//	}
+//
+//	@PutMapping("/updateProfilePic")
+//	@ApiOperation(value = "Api to update profile pic of User", response = Responses.class)
+//	public ResponseEntity<Responses> updateProfilePic(@ModelAttribute MultipartFile file,
+//			@RequestHeader("token") String token) {
+//		ProfilePic profile = profilePicService.updateProfilePic(file,file.getOriginalFilename(),file.getContentType(), token);
+//		return profile != null
+//				? ResponseEntity.status(HttpStatus.ACCEPTED)
+//						.body(new Responses("Profile Pic update Sucessfully!!!", 200))
+//				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Responses("Something went wrong!!!", 400));
+//	}
+
 
 }

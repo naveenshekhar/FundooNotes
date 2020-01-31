@@ -9,7 +9,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.bridgelabz.fundoo.configuration.AWSConfiguration.S3Config;
+import com.bridgelabz.fundoo.configuration.AWSConfiguration;
 import com.bridgelabz.fundoo.model.ProfilePic;
 import com.bridgelabz.fundoo.model.User;
 import com.bridgelabz.fundoo.repository.ProfilePicRepository;
@@ -34,8 +34,9 @@ public class profilePicServiceImplementation implements ProfilePicService {
 
 	@Autowired
 	private AmazonS3 amazonClient;
-	
-	private S3Config s3;
+
+	@Autowired
+	private AWSConfiguration s3;
 
 	@Override
 	public ProfilePic storeObjectInS3(MultipartFile file, String fileName, String contentType, String token) {
@@ -58,13 +59,13 @@ public class profilePicServiceImplementation implements ProfilePicService {
 						objectMetadata);
 				System.out.println("8 error expecting");
 				System.out.println("9 objectRequest :" + objectRequest);
-				
-				System.out.println("10 amazonClient :"+amazonClient.putObject(objectRequest));
-				System.out.println("11 "+s3.s3client().putObject(objectRequest));
+
+				System.out.println("10 amazonClient :" + amazonClient.putObject(objectRequest));
+				System.out.println("11 " + s3.s3client().putObject(objectRequest));
 				s3.s3client().putObject(objectRequest);
-				
+
 				amazonClient.putObject(objectRequest);
-			
+
 				System.out.println("12 error 404 :" + amazonClient.putObject(objectRequest));
 				profilePicRepository.saveData(fileName, user.getId());
 				return profile;
