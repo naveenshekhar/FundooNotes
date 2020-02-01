@@ -14,4 +14,6 @@ public interface ProfilePicService
 	
 	void deleteProfilePic(String key);
 
+	ProfilePic updateProfilePic(MultipartFile file, String originalFilename, String contentType, String token);
+
 }

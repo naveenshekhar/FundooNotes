@@ -8,8 +8,6 @@ import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.bridgelabz.fundoo.configuration.AWSConfiguration;
 import com.bridgelabz.fundoo.model.ProfilePic;
 import com.bridgelabz.fundoo.model.User;
 import com.bridgelabz.fundoo.repository.ProfilePicRepository;
@@ -34,9 +32,6 @@ public class profilePicServiceImplementation implements ProfilePicService {
 
 	@Autowired
 	private AmazonS3 amazonClient;
-
-	@Autowired
-	private AWSConfiguration s3;
 
 	@Override
 	public ProfilePic storeObjectInS3(MultipartFile file, String fileName, String contentType, String token) {
@@ -72,6 +67,12 @@ public class profilePicServiceImplementation implements ProfilePicService {
 			exception.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public ProfilePic updateProfilePic(MultipartFile file, String originalFilename, String contentType, String token) {
+
+		return null;
 	}
 
 }
