@@ -50,25 +50,30 @@ public class profilePicServiceImplementation implements ProfilePicService {
 				ObjectMetadata objectMetadata = new ObjectMetadata();
 				objectMetadata.setContentType(contentType);
 				objectMetadata.setContentLength(file.getSize());
-				System.out.println("3 before error");
-				System.out.println("4 bucketName :" + bucketName);
-				System.out.println("5 fileName :" + fileName);
-				System.out.println("6 file :" + file);
-				System.out.println("7 objectMetadata :" + objectMetadata);
-				PutObjectRequest objectRequest = new PutObjectRequest(bucketName, fileName, file.getInputStream(),
-						objectMetadata);
-				System.out.println("8 error expecting");
-				System.out.println("9 objectRequest :" + objectRequest);
-
-				System.out.println("10 amazonClient :" + amazonClient.putObject(objectRequest));
-				System.out.println("11 " + s3.s3client().putObject(objectRequest));
-				s3.s3client().putObject(objectRequest);
-
-				amazonClient.putObject(objectRequest);
-
-				System.out.println("12 error 404 :" + amazonClient.putObject(objectRequest));
-				profilePicRepository.saveData(fileName, user.getId());
+				amazonClient.putObject(bucketName, fileName, file.getInputStream(), objectMetadata);
+				profilePicRepository.save(profile);
+				System.out.println("profile :"+profile);
 				return profile;
+//				System.out.println("3 before error");
+//				System.out.println("4 bucketName :" + bucketName);
+//				System.out.println("5 fileName :" + fileName);
+//				System.out.println("6 file :" + file);
+//				System.out.println("7 objectMetadata :" + objectMetadata);
+//				PutObjectRequest objectRequest = new PutObjectRequest(bucketName, fileName, file.getInputStream(),
+//						objectMetadata);
+//				System.out.println("8 error expecting");
+//				System.out.println("9 objectRequest :" + objectRequest);
+//
+//			//	System.out.println("10 amazonClient :" + amazonClient.putObject(objectRequest));
+//			//	System.out.println("11 " + s3.s3client().putObject(objectRequest));
+//			//	s3.s3client().putObject(objectRequest);
+//				amazonClient.putObject(bucketName, fileName, file.getInputStream(), objectMetadata);
+//				// amazonClient.putObject(fileName, key, input, metadata)
+//
+//				//amazonClient.putObject(objectRequest);
+//				System.out.println("12 error 404 :" + amazonClient.putObject(objectRequest));
+//				profilePicRepository.saveData(fileName, user.getId());
+//				return profile;
 			}
 		} catch (
 
