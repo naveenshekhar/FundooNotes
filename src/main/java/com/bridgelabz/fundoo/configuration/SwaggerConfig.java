@@ -28,8 +28,6 @@ private ApiInfo metaInfo() {
             .title("Fundoo Notes")
             .description("\"Similar to GoogleKeep(CRUD)\"")
             .version("1.0")
-            .license("Apache License Version 2.0")
-            .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
             .contact(new Contact("Naveen Shekhar", "https://github.com/naveenshekhar", "naveen.shekhar624@gmail.com"))
             .build();
 
