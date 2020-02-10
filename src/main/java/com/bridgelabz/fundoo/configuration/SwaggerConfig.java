@@ -16,21 +16,20 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-@Bean
-public Docket api() {
-return new Docket(DocumentationType.SWAGGER_2).select()
-.apis(RequestHandlerSelectors.basePackage("com.bridgelabz.fundoo")).paths(PathSelectors.any()).build().apiInfo(metaInfo());
-}
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2).select()
+				.apis(RequestHandlerSelectors.basePackage("com.bridgelabz.fundoo")).paths(PathSelectors.any()).build()
+				.apiInfo(metaInfo());
+	}
 
-private ApiInfo metaInfo() {
+	private ApiInfo metaInfo() {
 
-    return new ApiInfoBuilder()
-            .title("Fundoo Notes")
-            .description("\"Similar to GoogleKeep(CRUD)\"")
-            .version("1.0")
-            .contact(new Contact("Naveen Shekhar", "https://github.com/naveenshekhar", "naveen.shekhar624@gmail.com"))
-            .build();
+		return new ApiInfoBuilder().title("Fundoo Notes").description("\"Similar to GoogleKeep(CRUD)\"").version("1.0")
+				.contact(new Contact("Naveen Shekhar", "https://github.com/naveenshekhar",
+						"naveen.shekhar624@gmail.com"))
+				.build();
 
-}
+	}
 
 }

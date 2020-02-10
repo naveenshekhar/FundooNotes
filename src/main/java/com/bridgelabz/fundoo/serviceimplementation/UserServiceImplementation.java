@@ -52,24 +52,25 @@ public class UserServiceImplementation implements UserService {
 		}
 		return null;
 	}
+
 	@Override
 	public User verifyUser(String token) {
-	System.out.println("11");
+		System.out.println("11");
 		try {
-			
+
 			logger.info("id in verification", tokenGenerator.parse(token));
 			System.out.println("111111");
 			System.out.println("inside verify method..");
 			long id = tokenGenerator.parse(token);
-			System.out.println("id"+id);
+			System.out.println("id" + id);
 			System.out.println(token);
-			
+
 			User isIdVerified = userRepository.getOne(id);
-			System.out.println("id"+id+" "+isIdVerified.getId());
+			System.out.println("id" + id + " " + isIdVerified.getId());
 			if (!isIdVerified.isVerified()) {
 				System.out.println("1");
 				userRepository.updateIsVarified(isIdVerified.getId());
-				System.out.println(id+" "+isIdVerified.getId());
+				System.out.println(id + " " + isIdVerified.getId());
 				System.out.println("save details");
 				return user;
 			} else {
@@ -103,7 +104,7 @@ public class UserServiceImplementation implements UserService {
 	public User forgetPassword(String email) {
 
 		User isUserAvailable = userRepository.FindByEmail(email);
-System.out.println("user"+isUserAvailable+email );
+		System.out.println("user" + isUserAvailable + email);
 		if (isUserAvailable != null) {
 			if (isUserAvailable.isVerified()) {
 				System.out.println("enterd");
@@ -130,7 +131,5 @@ System.out.println("user"+isUserAvailable+email );
 		return null;
 
 	}
-
-	
 
 }

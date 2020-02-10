@@ -1,6 +1,8 @@
 package com.bridgelabz.fundoo.controller;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +23,9 @@ public class NotesController {
 
 	@Autowired
 	NotesService service;
+	
+	@Autowired
+	private ElasticsearchOperations operations;
 
 	@PostMapping("/notes/create")
 	public ResponseEntity<Responce> create(@Valid @RequestBody NotesDto noteDto, @RequestHeader String token) {
@@ -85,6 +90,13 @@ public class NotesController {
 		} else {
 			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Responce("Failed to update...!!!", 400));
 		}
+	}
+	
+	@PostMapping("/notes/{searchById}")
+	public ResponseEntity<Responce> getNotesById(Long id, Long token)
+	{
+		return null;
+		
 	}
 
 }
