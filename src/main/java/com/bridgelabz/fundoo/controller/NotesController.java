@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoo.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
@@ -93,9 +95,11 @@ public class NotesController {
 	}
 	
 	@PostMapping("/notes/{searchById}")
-	public ResponseEntity<Responce> getNotesById(Long id, Long token)
-	{
-		return null;
+	public ResponseEntity<Responce> getNotesById(@RequestParam("title") String title,
+			 @RequestHeader("token") String token) {
+	     List<Notes> notes=service.searchByTitle(title);
+	     
+	     return ResponseEntity.status(HttpStatus.FOUND).body(new Responce("Found",200 ));
 		
 	}
 

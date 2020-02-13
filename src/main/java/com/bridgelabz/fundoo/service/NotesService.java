@@ -1,12 +1,13 @@
 package com.bridgelabz.fundoo.service;
 
+import java.util.List;
+
 import com.bridgelabz.fundoo.dto.NotesDto;
 import com.bridgelabz.fundoo.model.Notes;
 
 public interface NotesService {
 
 	Notes create(NotesDto noteDto, String token);
-
 
 	Notes update(long noteId, NotesDto notesDto, String token);
 
@@ -18,6 +19,6 @@ public interface NotesService {
 
 	boolean isArchive(Long noteId, String token);
 
-	
+	List<Notes> searchByTitle(String title);
 
 }
