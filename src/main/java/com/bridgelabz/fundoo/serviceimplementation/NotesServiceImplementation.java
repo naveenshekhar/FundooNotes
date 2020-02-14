@@ -215,8 +215,21 @@ public class NotesServiceImplementation implements NotesService {
 	}
 
 	@Override
-	public List<Notes> searchByTitle(String title) {
-		
+	public Notes searchByTitle(String title) {
+
+		Notes notes = notesrepo.searchByTitle(title);
+		if (notes != null) {
+			return notes;
+		} else
+			return null;
+	}
+
+	@Override
+	public List<Notes> getAllNotes(String token) {
+		List<Notes> notes = notesrepo.findAllNotes(token);
+		if (notes != null) {
+			return notes;
+		}
 		return null;
 	}
 }

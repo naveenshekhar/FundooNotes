@@ -1,16 +1,20 @@
 package com.bridgelabz.fundoo.repository;
 
+import java.awt.print.Pageable;
+import java.util.List;
+
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.fundoo.dto.ForgetPaswordDto;
 import com.bridgelabz.fundoo.model.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, PagingAndSortingRepository<User, Long> {
 
 	@Query(value = "insert into user (first_name,last_name,phone_number,email,password) values (?,?,?,?,?)", nativeQuery = true)
 	void insertData(String firstName, String lastName, String phoneNumber, String email, String password);
@@ -35,4 +39,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Transactional
 	@Query(value = "update user set is_verified =  true where id=?", nativeQuery = true)
 	void updateIsVarified(Long id);
+
+	
+	//List<User> findAllUsers(User user, Pageable pageable);
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,13 +24,18 @@ public class NotesController {
 
 	@Autowired
 	NotesService service;
-	
-	@Autowired
-	private ElasticsearchOperations operations;
 
+//	@Autowired
+//	private ElasticsearchOperations operations;
+
+	@SuppressWarnings("deprecation")
 	@PostMapping("/notes/create")
 	public ResponseEntity<Responce> create(@Valid @RequestBody NotesDto noteDto, @RequestHeader String token) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(new Responce("Notes created Successfully", 200));
+		Notes note = service.create(noteDto, token);
+		if (note != null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(new Responce("Notes created Successfully", 200));
+		}
+		return ResponseEntity.status(HttpStatus.METHOD_FAILURE).body(new Responce("Notes created Successfully", 400));
 	}
 
 	@DeleteMapping("/deleteNotes/{token}")
@@ -93,14 +97,27 @@ public class NotesController {
 			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).body(new Responce("Failed to update...!!!", 400));
 		}
 	}
-	
-	@PostMapping("/notes/{searchById}")
+
+	@PostMapping("/notes/{searchNotes}")
 	public ResponseEntity<Responce> getNotesById(@RequestParam("title") String title,
-			 @RequestHeader("token") String token) {
-	     List<Notes> notes=service.searchByTitle(title);
-	     
-	     return ResponseEntity.status(HttpStatus.FOUND).body(new Responce("Found",200 ));
-		
+			@RequestHeader("token") String token) {
+		Notes notes = service.searchByTitle(title);
+		System.out.println(notes);
+		if (notes != null) {
+			return ResponseEntity.status(HttpStatus.FOUND).body(new Responce("Found", 200, notes));
+		} else
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Responce("Not Found", 400));
+	}
+
+	@PostMapping("/notes/getAllNotes")
+	public ResponseEntity<Responce> getAllNotes(String token) {
+		List<Notes> notes = service.getAllNotes(token);
+
+		if (notes != null) {
+			return ResponseEntity.status(HttpStatus.FOUND).body(new Responce("Found", 200, notes));
+		} else
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Responce("Not Found", 400));
 	}
 
 }

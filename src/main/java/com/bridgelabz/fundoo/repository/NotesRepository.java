@@ -31,7 +31,7 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 
 	@Modifying
 	@Transactional
-	
+
 	@Query(value = "update note set title=?,description=? where id=?", nativeQuery = true)
 	void update(String title, String description, long id);
 
@@ -50,8 +50,13 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 	@Query(value = "update note set is_trashed=? where id=?", nativeQuery = true)
 	void isTrashed(boolean status, Long id);
 
-	
-	@Query(value = "select * from notes where note_id=?", nativeQuery = true)
+	@Query(value = "select * from note where note_id=?", nativeQuery = true)
 	public List<Notes> searchAllNoteByNoteId(long userId, long noteId);
+
+	@Query(value = "select * from note where title=?", nativeQuery = true)
+	Notes searchByTitle(String title);
+
+	@Query(value = "select * from note", nativeQuery = true)
+	List<Notes> findAllNotes(String token);
 
 }
