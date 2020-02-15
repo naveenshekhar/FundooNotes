@@ -1,6 +1,5 @@
 package com.bridgelabz.fundoo.service;
 
-
 import java.util.List;
 
 import com.bridgelabz.fundoo.dto.NotesDto;
@@ -23,5 +22,7 @@ public interface NotesService {
 	Notes searchByTitle(String title);
 
 	List<Notes> getAllNotes(String token);
+
+	Notes elasticSearch(String token, String word);
 
 }

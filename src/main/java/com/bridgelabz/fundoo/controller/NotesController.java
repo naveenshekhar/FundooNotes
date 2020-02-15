@@ -99,7 +99,7 @@ public class NotesController {
 	}
 
 	@PostMapping("/notes/{searchNotes}")
-	public ResponseEntity<Responce> getNotesById(@RequestParam("title") String title,
+	public ResponseEntity<Responce> getNotesByName(@RequestParam("title") String title,
 			@RequestHeader("token") String token) {
 		Notes notes = service.searchByTitle(title);
 		System.out.println(notes);
@@ -120,4 +120,15 @@ public class NotesController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Responce("Not Found", 400));
 	}
 
+	@PostMapping("/notes/elasticSearch")
+	public ResponseEntity<Responce> noteElasticSearch(String token,String word) {
+
+		Notes note = service.elasticSearch(token,word);
+
+		if (note != null) {
+			return ResponseEntity.status(HttpStatus.FOUND).body(new Responce("Found", 200, note));
+		} else
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Responce("Not Found", 400));
+	}
 }

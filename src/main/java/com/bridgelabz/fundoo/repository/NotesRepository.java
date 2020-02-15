@@ -59,4 +59,7 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 	@Query(value = "select * from note", nativeQuery = true)
 	List<Notes> findAllNotes(String token);
 
+	
+	Notes elasticSearch(String word);
+
 }

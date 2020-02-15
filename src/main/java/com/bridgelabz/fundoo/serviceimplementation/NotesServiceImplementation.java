@@ -232,4 +232,13 @@ public class NotesServiceImplementation implements NotesService {
 		}
 		return null;
 	}
+
+	@Override
+	public Notes elasticSearch(String token, String word) {
+		
+		Notes note=notesrepo.elasticSearch(word);
+
+		return null;
+	}
+
 }
