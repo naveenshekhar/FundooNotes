@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import com.bridgelabz.fundoo.model.Notes;
 import com.bridgelabz.fundoo.model.User;
 import com.bridgelabz.fundoo.repository.NotesRepository;
 import com.bridgelabz.fundoo.repository.UserRepository;
+import com.bridgelabz.fundoo.service.ElasticSearchService;
 import com.bridgelabz.fundoo.service.NotesService;
 import com.bridgelabz.fundoo.utility.JwtGenerator;
 
@@ -29,6 +31,9 @@ public class NotesServiceImplementation implements NotesService {
 
 	@Autowired
 	private JwtGenerator tokenGenerator;
+
+	@Autowired
+	private ElasticSearchService elasticSearchService;
 
 	Notes notesModel = new Notes();
 
@@ -217,7 +222,7 @@ public class NotesServiceImplementation implements NotesService {
 	@Override
 	public Notes searchByTitle(String title) {
 
-		Notes notes = notesrepo.searchByTitle(title);
+		notes = notesrepo.searchByTitle(title);
 		if (notes != null) {
 			return notes;
 		} else
@@ -234,10 +239,8 @@ public class NotesServiceImplementation implements NotesService {
 	}
 
 	@Override
-	public Notes elasticSearch(String token, String word) {
-		
-		Notes note=notesrepo.elasticSearch(word);
-
+	public Map<String, Object> elasticSearch(String word) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

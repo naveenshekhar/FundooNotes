@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoo.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,9 +122,9 @@ public class NotesController {
 	}
 
 	@PostMapping("/notes/elasticSearch")
-	public ResponseEntity<Responce> noteElasticSearch(String token,String word) {
+	public ResponseEntity<Responce> noteElasticSearch(@RequestParam String word) {
 
-		Notes note = service.elasticSearch(token,word);
+		Map<String, Object> note = service.elasticSearch(word);
 
 		if (note != null) {
 			return ResponseEntity.status(HttpStatus.FOUND).body(new Responce("Found", 200, note));

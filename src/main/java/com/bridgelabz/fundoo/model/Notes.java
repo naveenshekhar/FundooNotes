@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +21,7 @@ import lombok.Setter;
 @Table(name = "note")
 @Getter
 @Setter
+@Document(indexName= "ducat", type= "employee")
 public class Notes {
 
 	public Timestamp getCreationTime() {

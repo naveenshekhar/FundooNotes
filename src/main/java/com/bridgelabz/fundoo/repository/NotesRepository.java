@@ -60,6 +60,6 @@ public interface NotesRepository extends JpaRepository<Notes, Long> {
 	List<Notes> findAllNotes(String token);
 
 	
-	Notes elasticSearch(String word);
+//	Notes elasticSearch(String word);
 
 }
