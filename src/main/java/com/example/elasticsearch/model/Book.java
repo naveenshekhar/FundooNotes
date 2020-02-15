@@ -1,14 +1,24 @@
 package com.example.elasticsearch.model;
 
+import javax.annotation.Generated;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+import org.springframework.data.annotation.Id;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(value = Include.NON_EMPTY)
 public class Book {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private String id;
-    private String title;
-    private String author;
+	private String title;
+	private String author;
 	private float price;
 
 	public String getId() {
